@@ -96,7 +96,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
             difficulty = UserSettings.sharedInstance.difficulty
         }
         
-        performSegueWithIdentifier(Constants.Segues.GameOver, sender: self) // for testing
+        //performSegueWithIdentifier(Constants.Segues.GameOver, sender: self) // for testing
     }
 
 
@@ -111,8 +111,12 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     func cardTapped(card: CardView) {
         func foundMatch(){
             audioPlayer = AVAudioPlayer.playSound(Assets.Sounds.Match)
-            currentCard?.hide()
-            lastCard?.hide()
+            currentCard!.hide()
+            lastCard!.hide()
+            
+            view.bringSubviewToFront(currentCard!)
+            view.bringSubviewToFront(lastCard!)
+            
             
             cards.removeAtIndex(cards.indexOf(currentCard!)!)
             cards.removeAtIndex(cards.indexOf(lastCard!)!)

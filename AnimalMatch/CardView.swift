@@ -55,7 +55,7 @@ class CardView: UIView {
     }
     
     func show(){
-        flip(sideA: empty, sideB: front, animation: UIViewAnimationOptions.TransitionFlipFromLeft, duration:0.35)
+        flip(sideA: empty, sideB: back, animation: UIViewAnimationOptions.TransitionFlipFromLeft, duration:0.35)
     }
     
     func hide(){

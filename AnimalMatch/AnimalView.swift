@@ -10,6 +10,11 @@ import UIKit
 
 class AnimalView : UIView {
     
+    private var _popped = false
+    var popped:Bool {
+        return _popped
+    }
+    
     var balloon: UIImageView?
     var balloonAsset:String?{
         didSet{
@@ -32,8 +37,9 @@ class AnimalView : UIView {
             addSubview(animal!)
         }
     }
-        
-    func pop(){
+    
+    func pop(complete:()->Void={}){
+        _popped = true
         let pop = UIImageView(image: UIImage(named: Assets.Images.Balloons.Pop))
         pop.frame.size = CGSize(width: balloon!.frame.size.width, height: balloon!.frame.size.width * pop.image!.ratio)
         addSubview(pop)
@@ -42,12 +48,13 @@ class AnimalView : UIView {
                 self.balloon!.transform = CGAffineTransformMakeScale(0.1, 0.1)
                 self.balloon!.center.y -= self.balloon!.bounds.height/4
                 self.balloon!.alpha = 0
-                self.animal!.alpha = 1
+                self.animal?.alpha = 1
                 pop.transform = CGAffineTransformMakeScale(2, 2)
                 pop.alpha = 0
             },
             completion: { success in
                 pop.removeFromSuperview()
+                complete()
             }
         )
     }

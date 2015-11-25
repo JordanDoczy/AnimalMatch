@@ -11,8 +11,7 @@
 		E616C70D1C03DFBE00231BD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E616C70B1C03DFBE00231BD9 /* Main.storyboard */; };
 		E616C7121C03DFBE00231BD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E616C7101C03DFBE00231BD9 /* LaunchScreen.storyboard */; };
 		E616C71F1C03DFFC00231BD9 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C71A1C03DFFC00231BD9 /* IntroViewController.swift */; };
-		E616C7201C03DFFC00231BD9 /* BalloonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C71B1C03DFFC00231BD9 /* BalloonViewController.swift */; };
-		E616C7211C03DFFC00231BD9 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C71C1C03DFFC00231BD9 /* GameOverViewController.swift */; };
+		E616C7201C03DFFC00231BD9 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C71B1C03DFFC00231BD9 /* GameOverViewController.swift */; };
 		E616C7221C03DFFC00231BD9 /* MatchGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C71D1C03DFFC00231BD9 /* MatchGameViewController.swift */; };
 		E616C7231C03DFFC00231BD9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C71E1C03DFFC00231BD9 /* SettingsViewController.swift */; };
 		E616C7261C03E01E00231BD9 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C7251C03E01E00231BD9 /* UserSettings.swift */; };
@@ -21,7 +20,6 @@
 		E616C7311C03E05900231BD9 /* AnimalBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C72D1C03E05900231BD9 /* AnimalBehavior.swift */; };
 		E616C7321C03E05900231BD9 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C72E1C03E05900231BD9 /* Assets.swift */; };
 		E616C7331C03E05900231BD9 /* AVAudioPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C72F1C03E05900231BD9 /* AVAudioPlayerExtension.swift */; };
-		E616C7341C03E05900231BD9 /* GameOverSceneBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616C7301C03E05900231BD9 /* GameOverSceneBehavior.swift */; };
 		E616C7461C03E0D600231BD9 /* cow.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7371C03E0D600231BD9 /* cow.wav */; };
 		E616C7471C03E0D600231BD9 /* chicken.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7381C03E0D600231BD9 /* chicken.wav */; };
 		E616C7481C03E0D600231BD9 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7391C03E0D600231BD9 /* click.wav */; };
@@ -38,6 +36,10 @@
 		E616C7531C03E0D600231BD9 /* xylophone.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7441C03E0D600231BD9 /* xylophone.wav */; };
 		E616C7541C03E0D600231BD9 /* yay.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7451C03E0D600231BD9 /* yay.wav */; };
 		E616C7561C03E18800231BD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E616C7551C03E18800231BD9 /* Assets.xcassets */; };
+		E616C7581C051C6E00231BD9 /* dog.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7571C051C6E00231BD9 /* dog.wav */; };
+		E616C75A1C051CBC00231BD9 /* cat.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7591C051CBC00231BD9 /* cat.wav */; };
+		E616C75C1C051E4800231BD9 /* sheep.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C75B1C051E4800231BD9 /* sheep.wav */; };
+		E616C75E1C051F0F00231BD9 /* donkey.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C75D1C051F0F00231BD9 /* donkey.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,8 +49,7 @@
 		E616C7111C03DFBE00231BD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E616C7131C03DFBE00231BD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E616C71A1C03DFFC00231BD9 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
-		E616C71B1C03DFFC00231BD9 /* BalloonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonViewController.swift; sourceTree = "<group>"; };
-		E616C71C1C03DFFC00231BD9 /* GameOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		E616C71B1C03DFFC00231BD9 /* GameOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		E616C71D1C03DFFC00231BD9 /* MatchGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchGameViewController.swift; sourceTree = "<group>"; };
 		E616C71E1C03DFFC00231BD9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E616C7251C03E01E00231BD9 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		E616C72D1C03E05900231BD9 /* AnimalBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalBehavior.swift; sourceTree = "<group>"; };
 		E616C72E1C03E05900231BD9 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		E616C72F1C03E05900231BD9 /* AVAudioPlayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioPlayerExtension.swift; sourceTree = "<group>"; };
-		E616C7301C03E05900231BD9 /* GameOverSceneBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverSceneBehavior.swift; sourceTree = "<group>"; };
 		E616C7371C03E0D600231BD9 /* cow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cow.wav; sourceTree = "<group>"; };
 		E616C7381C03E0D600231BD9 /* chicken.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = chicken.wav; sourceTree = "<group>"; };
 		E616C7391C03E0D600231BD9 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
@@ -74,6 +74,10 @@
 		E616C7441C03E0D600231BD9 /* xylophone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = xylophone.wav; sourceTree = "<group>"; };
 		E616C7451C03E0D600231BD9 /* yay.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = yay.wav; sourceTree = "<group>"; };
 		E616C7551C03E18800231BD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E616C7571C051C6E00231BD9 /* dog.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dog.wav; sourceTree = "<group>"; };
+		E616C7591C051CBC00231BD9 /* cat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cat.wav; sourceTree = "<group>"; };
+		E616C75B1C051E4800231BD9 /* sheep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sheep.wav; sourceTree = "<group>"; };
+		E616C75D1C051F0F00231BD9 /* donkey.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = donkey.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				E616C71A1C03DFFC00231BD9 /* IntroViewController.swift */,
-				E616C71B1C03DFFC00231BD9 /* BalloonViewController.swift */,
-				E616C71C1C03DFFC00231BD9 /* GameOverViewController.swift */,
+				E616C71B1C03DFFC00231BD9 /* GameOverViewController.swift */,
 				E616C71D1C03DFFC00231BD9 /* MatchGameViewController.swift */,
 				E616C71E1C03DFFC00231BD9 /* SettingsViewController.swift */,
 			);
@@ -152,9 +155,7 @@
 			children = (
 				E616C7071C03DFBE00231BD9 /* AppDelegate.swift */,
 				E616C72D1C03E05900231BD9 /* AnimalBehavior.swift */,
-				E616C72E1C03E05900231BD9 /* Assets.swift */,
 				E616C72F1C03E05900231BD9 /* AVAudioPlayerExtension.swift */,
-				E616C7301C03E05900231BD9 /* GameOverSceneBehavior.swift */,
 			);
 			name = Supporting;
 			sourceTree = "<group>";
@@ -162,15 +163,19 @@
 		E616C7351C03E0BD00231BD9 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				E616C7591C051CBC00231BD9 /* cat.wav */,
 				E616C7371C03E0D600231BD9 /* cow.wav */,
 				E616C7381C03E0D600231BD9 /* chicken.wav */,
 				E616C7391C03E0D600231BD9 /* click.wav */,
+				E616C7571C051C6E00231BD9 /* dog.wav */,
+				E616C75D1C051F0F00231BD9 /* donkey.wav */,
 				E616C73A1C03E0D600231BD9 /* giggle.wav */,
 				E616C73B1C03E0D600231BD9 /* flip.wav */,
 				E616C73C1C03E0D600231BD9 /* match.wav */,
 				E616C73D1C03E0D600231BD9 /* intro.wav */,
 				E616C73E1C03E0D600231BD9 /* pop.wav */,
 				E616C73F1C03E0D600231BD9 /* rooster.wav */,
+				E616C75B1C051E4800231BD9 /* sheep.wav */,
 				E616C7401C03E0D600231BD9 /* slide-whistle.mp3 */,
 				E616C7411C03E0D600231BD9 /* start.wav */,
 				E616C7421C03E0D600231BD9 /* wee.wav */,
@@ -184,6 +189,7 @@
 		E616C7361C03E0C900231BD9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E616C72E1C03E05900231BD9 /* Assets.swift */,
 				E616C7551C03E18800231BD9 /* Assets.xcassets */,
 				E616C7351C03E0BD00231BD9 /* Sounds */,
 			);
@@ -251,16 +257,20 @@
 				E616C7511C03E0D600231BD9 /* wee.wav in Resources */,
 				E616C7531C03E0D600231BD9 /* xylophone.wav in Resources */,
 				E616C74B1C03E0D600231BD9 /* match.wav in Resources */,
+				E616C75A1C051CBC00231BD9 /* cat.wav in Resources */,
 				E616C74E1C03E0D600231BD9 /* rooster.wav in Resources */,
 				E616C7491C03E0D600231BD9 /* giggle.wav in Resources */,
+				E616C75E1C051F0F00231BD9 /* donkey.wav in Resources */,
 				E616C7461C03E0D600231BD9 /* cow.wav in Resources */,
 				E616C7541C03E0D600231BD9 /* yay.wav in Resources */,
 				E616C7121C03DFBE00231BD9 /* LaunchScreen.storyboard in Resources */,
 				E616C74F1C03E0D600231BD9 /* slide-whistle.mp3 in Resources */,
+				E616C75C1C051E4800231BD9 /* sheep.wav in Resources */,
 				E616C7521C03E0D600231BD9 /* whistle.wav in Resources */,
 				E616C7471C03E0D600231BD9 /* chicken.wav in Resources */,
 				E616C74C1C03E0D600231BD9 /* intro.wav in Resources */,
 				E616C7481C03E0D600231BD9 /* click.wav in Resources */,
+				E616C7581C051C6E00231BD9 /* dog.wav in Resources */,
 				E616C70D1C03DFBE00231BD9 /* Main.storyboard in Resources */,
 				E616C7501C03E0D600231BD9 /* start.wav in Resources */,
 				E616C74A1C03E0D600231BD9 /* flip.wav in Resources */,
@@ -276,11 +286,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E616C7201C03DFFC00231BD9 /* BalloonViewController.swift in Sources */,
+				E616C7201C03DFFC00231BD9 /* GameOverViewController.swift in Sources */,
 				E616C71F1C03DFFC00231BD9 /* IntroViewController.swift in Sources */,
 				E616C7321C03E05900231BD9 /* Assets.swift in Sources */,
 				E616C7311C03E05900231BD9 /* AnimalBehavior.swift in Sources */,
-				E616C7341C03E05900231BD9 /* GameOverSceneBehavior.swift in Sources */,
 				E616C7231C03DFFC00231BD9 /* SettingsViewController.swift in Sources */,
 				E616C7221C03DFFC00231BD9 /* MatchGameViewController.swift in Sources */,
 				E616C72B1C03E02C00231BD9 /* CardView.swift in Sources */,
@@ -288,7 +297,6 @@
 				E616C7261C03E01E00231BD9 /* UserSettings.swift in Sources */,
 				E616C72A1C03E02C00231BD9 /* AnimalView.swift in Sources */,
 				E616C7081C03DFBE00231BD9 /* AppDelegate.swift in Sources */,
-				E616C7211C03DFFC00231BD9 /* GameOverViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,9 +410,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AnimalMatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jordandoczy.AnimalMatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -413,9 +423,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AnimalMatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jordandoczy.AnimalMatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

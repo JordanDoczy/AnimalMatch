@@ -10,6 +10,14 @@ import UIKit
 
 class AnimalBehavior : UIDynamicBehavior {
     
+    struct Constants{
+        struct Boundaries{
+            static let Bottom   = "bottom"
+            static let Left     = "left"
+            static let Right    = "right"
+            static let Top      = "top"
+        }
+    }
     private lazy var collisionBehavior: UICollisionBehavior = {
         let lazy = UICollisionBehavior()
         lazy.collisionMode = UICollisionBehaviorMode.Boundaries
@@ -25,10 +33,10 @@ class AnimalBehavior : UIDynamicBehavior {
     
     var boundary:CGRect? {
         didSet{
-            collisionBehavior.addBoundaryWithIdentifier("left", fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height))
-            collisionBehavior.addBoundaryWithIdentifier("right", fromPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y + boundary!.size.height))
-            collisionBehavior.addBoundaryWithIdentifier("top", fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y))
-            collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y  + boundary!.size.height))
+            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Left, fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height))
+            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Right, fromPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y + boundary!.size.height))
+            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Top, fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y))
+            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Bottom, fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y  + boundary!.size.height))
         }
     }
     

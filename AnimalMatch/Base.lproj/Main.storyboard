@@ -32,9 +32,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="06o-W5-2Vk" kind="show" id="38X-Mm-Dck">
-                                        <nil key="action"/>
-                                    </segue>
+                                    <segue destination="06o-W5-2Vk" kind="modal" modalTransitionStyle="crossDissolve" id="38X-Mm-Dck"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="Lad-Fg-5z5">
@@ -66,9 +64,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="LLs-Sw-VQJ"/>
                     <connections>
-                        <segue destination="jZG-LV-L2k" kind="show" identifier="Game Over" id="CH3-Id-Zsz">
-                            <nil key="action"/>
-                        </segue>
+                        <segue destination="jZG-LV-L2k" kind="presentation" identifier="Game Over" modalTransitionStyle="crossDissolve" id="CH3-Id-Zsz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0WK-sS-vdN" sceneMemberID="firstResponder"/>
@@ -78,7 +74,7 @@
         <!--Game Over!-->
         <scene sceneID="Pn2-XG-rKE">
             <objects>
-                <viewController title="Game Over!" id="jZG-LV-L2k" customClass="BalloonViewController" customModule="AnimalMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Game Over!" id="jZG-LV-L2k" customClass="GameOverViewController" customModule="AnimalMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cMd-Op-fNv"/>
                         <viewControllerLayoutGuide type="bottom" id="ZGe-o5-hpC"/>
@@ -97,24 +93,14 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hkI-e7-8ZY" kind="show" id="L5h-RY-ern">
-                                        <nil key="action"/>
-                                    </segue>
+                                    <segue destination="hkI-e7-8ZY" kind="presentation" identifier="Play Again" modalTransitionStyle="crossDissolve" id="L5h-RY-ern"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOU WIN!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eL1-wn-RBh">
-                                <rect key="frame" x="209" y="271" width="182" height="57"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="40"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.70379212030000005" green="0.92204662000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="GlR-Nz-ZRQ" firstAttribute="top" secondItem="cMd-Op-fNv" secondAttribute="bottom" id="4Ml-3I-lTx"/>
-                            <constraint firstItem="eL1-wn-RBh" firstAttribute="centerX" secondItem="srH-rA-Krf" secondAttribute="centerX" id="aCO-aE-Tfv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GlR-Nz-ZRQ" secondAttribute="trailing" id="rJK-uw-VPW"/>
-                            <constraint firstItem="eL1-wn-RBh" firstAttribute="centerY" secondItem="srH-rA-Krf" secondAttribute="centerY" id="vLN-8N-e4M"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -186,12 +172,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="a8m-k3-NJu"/>
                                 <exclude reference="K5s-vo-Bzx"/>
+                                <exclude reference="a8m-k3-NJu"/>
                                 <exclude reference="xYG-27-l9c"/>
                                 <exclude reference="ypT-Py-fSZ"/>
-                                <exclude reference="bJQ-7a-gbe"/>
                                 <exclude reference="Cab-U8-TSq"/>
+                                <exclude reference="bJQ-7a-gbe"/>
                             </mask>
                         </variation>
                     </view>
@@ -347,6 +333,6 @@
         <image name="play" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MfD-rw-bwa"/>
+        <segue reference="38X-Mm-Dck"/>
     </inferredMetricsTieBreakers>
 </document>
