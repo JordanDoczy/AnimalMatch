@@ -9,7 +9,7 @@
         <!--Match Game-->
         <scene sceneID="He2-vj-CRV">
             <objects>
-                <viewController title="Match Game" id="X2h-07-Y96" customClass="MatchGameViewController" customModule="AnimalMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Match Game" id="X2h-07-Y96" customClass="MatchGameViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mjx-SP-TUX"/>
                         <viewControllerLayoutGuide type="bottom" id="kZb-Ww-EXF"/>
@@ -78,7 +78,7 @@
         <!--Game Over!-->
         <scene sceneID="Pn2-XG-rKE">
             <objects>
-                <viewController title="Game Over!" id="jZG-LV-L2k" customClass="GameOverViewController" customModule="AnimalMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Game Over!" id="jZG-LV-L2k" customClass="GameOverViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cMd-Op-fNv"/>
                         <viewControllerLayoutGuide type="bottom" id="ZGe-o5-hpC"/>
@@ -117,7 +117,7 @@
         <!--Intro View Controller-->
         <scene sceneID="dMO-tZ-DKI">
             <objects>
-                <viewController id="hkI-e7-8ZY" customClass="IntroViewController" customModule="AnimalMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hkI-e7-8ZY" customClass="IntroViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6kz-xy-ek6"/>
                         <viewControllerLayoutGuide type="bottom" id="Jxz-qt-3Zc"/>
@@ -126,10 +126,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANIMAL MATCH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnK-O3-LbY">
-                                <rect key="frame" x="179" y="213" width="242" height="47"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANIMAL MATCH POP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnK-O3-LbY">
+                                <rect key="frame" x="156.5" y="217.5" width="288" height="42.5"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="33"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="-1" height="1"/>
@@ -205,7 +205,7 @@
         <!--Settings View Controller-->
         <scene sceneID="agw-hP-B7M">
             <objects>
-                <viewController id="ifX-gr-3KZ" customClass="SettingsViewController" customModule="AnimalMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ifX-gr-3KZ" customClass="SettingsViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ewE-4J-sL7"/>
                         <viewControllerLayoutGuide type="bottom" id="e1e-2P-oR5"/>
@@ -350,6 +350,6 @@
         <image name="play" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="38X-Mm-Dck"/>
+        <segue reference="MfD-rw-bwa"/>
     </inferredMetricsTieBreakers>
 </document>
