@@ -22,9 +22,10 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         }
     }
     
-    private var animator:UIDynamicAnimator!
+    // MARK: Private Members
     private let animalBehavior = AnimalBehavior()
-    private var balloon:AnimalView?
+    private var animator:UIDynamicAnimator!
+    private var balloon:BalloonView?
     private let balloons = [
         Assets.Images.Balloons.Red,
         Assets.Images.Balloons.Orange,
@@ -66,10 +67,9 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         default: return images.count
         }
     }
-
     private var pops = 0
-    private var sounds = [AVAudioPlayer]()
     private let spacer: CGFloat = 5
+    private var sounds = [AVAudioPlayer]()
     
     // MARK : View Controller Lifecycle
     override func viewDidLoad() {
@@ -87,9 +87,55 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         createBalloon("POP THE BALLOONS!")
     }
     
-    func createBalloon(text:String, autoPop:Bool = true)->AnimalView{
+    // MARK: Public Methods
+    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, atPoint p: CGPoint){
         
-        let balloon = AnimalView()
+        if let animal = item as? BalloonView{
+            let asset = animal.animalAsset!
+            animalBehavior.removeView(animal)
+            
+            if !animal.popped {
+                createAnimal(asset)
+            }
+        }
+    }
+    
+    func createAnimal(asset:String, yOffset:CGFloat = 0) ->BalloonView{
+        
+        let randomX = randomInt(min: Int(imageWidth), max: Int(view.bounds.size.width - imageWidth))
+        let animal = BalloonView(frame: CGRect(origin: CGPoint(x: CGFloat(randomX), y:view.bounds.height + 70 + yOffset), size: CGSize(width: imageWidth, height: imageWidth)))
+        animal.animalAsset = asset
+        animal.balloonAsset = balloons[randomInt(min: 0, max: balloons.count-1)]
+        
+        let tap = UITapGestureRecognizer(target: self, action: Constants.Selectors.PopBalloon)
+        tap.numberOfTapsRequired = 1
+        animal.addGestureRecognizer(tap)
+        animalBehavior.addView(animal)
+        push(animal)
+        
+        return animal
+    }
+
+    func createAnimals(timer:NSTimer){
+
+        if let balloon = timer.userInfo as? BalloonView{
+            balloon.subviews.filter(){ $0 is UILabel }.first?.removeFromSuperview()
+            balloon.pop(){
+                balloon.removeFromSuperview()
+            }
+            self.sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Pop)!)
+        }
+        
+        for index in 0..<numberOfImages{
+            createAnimal(images[index], yOffset: -CGFloat(randomInt(min: Int(view.bounds.size.height * 0.10), max: Int(view.bounds.size.height * 0.75))))
+        }
+        
+        timer.invalidate()
+    }
+
+    func createBalloon(text:String, autoPop:Bool = true)->BalloonView{
+        
+        let balloon = BalloonView()
         balloon.frame.size.width = view.bounds.width / 2
         balloon.balloonAsset = Assets.Images.Balloons.Red
         balloon.center.x = view.center.x
@@ -123,42 +169,8 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         return balloon
     }
     
-    func createAnimals(timer:NSTimer){
-        if let balloon = timer.userInfo as? AnimalView{
-            balloon.subviews.filter(){ $0 is UILabel }.first?.removeFromSuperview()
-            balloon.pop(){
-                balloon.removeFromSuperview()
-            }
-            self.sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Pop)!)
-        }
-        
-        for index in 0..<numberOfImages{
-            createAnimal(images[index], yOffset: -CGFloat(randomInt(min: Int(view.bounds.size.height * 0.10), max: Int(view.bounds.size.height * 0.75))))
-        }
-
-        timer.invalidate()
-    }
-    
-    func createAnimal(asset:String, yOffset:CGFloat = 0) ->AnimalView{
-       
-        let randomX = randomInt(min: Int(imageWidth), max: Int(view.bounds.size.width - imageWidth))
-
-        
-        let animal = AnimalView(frame: CGRect(origin: CGPoint(x: CGFloat(randomX), y:view.bounds.height + 70 + yOffset), size: CGSize(width: imageWidth, height: imageWidth)))
-        animal.animalAsset = asset
-        animal.balloonAsset = balloons[randomInt(min: 0, max: balloons.count-1)]
-        
-        let tap = UITapGestureRecognizer(target: self, action: Constants.Selectors.PopBalloon)
-        tap.numberOfTapsRequired = 1
-        animal.addGestureRecognizer(tap)
-        animalBehavior.addView(animal)
-        push(animal)
-
-        return animal
-    }
-    
     func popBalloon(sender:UITapGestureRecognizer){
-        if let animal = sender.view as? AnimalView {
+        if let animal = sender.view as? BalloonView {
             animal.pop()
             animal.userInteractionEnabled = false
             animal.removeGestureRecognizer(sender)
@@ -187,7 +199,6 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
             animalBehavior.addGravityBehavior(animal)
             
             pops++
-            print (pops)
             if pops == numberOfImages {
                 let tap = UITapGestureRecognizer(target: self, action: Constants.Selectors.PlayAgain)
                 view.userInteractionEnabled = true
@@ -198,31 +209,6 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         }
     }
     
-    func push(animal:AnimalView){
-        
-        var speed = drand48()
-        speed = speed < 0.45 ? 0.45 : speed
-        animalBehavior.continuousPush(animal, vector: CGVector(dx: 0, dy: speed * -0.025))
-    }
-    
-    
-    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, atPoint p: CGPoint){
-        
-        if let animal = item as? AnimalView{
-            let asset = animal.animalAsset!
-            animalBehavior.removeView(animal)
-            
-            if !animal.popped {
-                createAnimal(asset)
-            }
-        }
-    }
-    
-    func randomInt(min min: Int, max: Int) -> Int {
-        if max < min { return min }
-        return Int(arc4random_uniform(UInt32((max - min) + 1))) + min
-    }
-    
     func playAgain(sender:UITapGestureRecognizer){
         sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Pop)!)
         balloon!.subviews.filter(){ $0 is UILabel }.first?.removeFromSuperview()
@@ -230,5 +216,21 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
             self.performSegueWithIdentifier(Constants.Segues.PlayAgain, sender: self)
         }
     }
+    
+    func push(animal:BalloonView){
+        
+        var speed = drand48()
+        speed = speed < 0.45 ? 0.45 : speed
+        animalBehavior.continuousPush(animal, vector: CGVector(dx: 0, dy: speed * -0.025))
+    }
+    
+    
+    
+    // MARK: Private Methods
+    private func randomInt(min min: Int, max: Int) -> Int {
+        if max < min { return min }
+        return Int(arc4random_uniform(UInt32((max - min) + 1))) + min
+    }
+
 }
 

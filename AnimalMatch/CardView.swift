@@ -21,14 +21,14 @@ class CardView: UIView {
         }
     }
 
-    weak var delegate:CardViewDelegate?
-    
-    var value:String?
-
+    // MARK: Private Members
     private var back: UIView!
     private var front: UIView!
     private var empty: UIView!
-    
+
+    // MARK: Public Members
+    weak var delegate:CardViewDelegate?
+    var value:String?
     var visible: Bool {
         get {
             return subviews.contains(front)
@@ -39,6 +39,7 @@ class CardView: UIView {
         }
     }
 
+    // MARK: INIT
     convenience init(frame: CGRect, back backImage:String, front frontImage:String, color:UIColor=UIColor.clearColor()) {
         self.init(frame:frame)
         
@@ -54,10 +55,7 @@ class CardView: UIView {
         userInteractionEnabled = true
     }
     
-    func show(){
-        flip(sideA: empty, sideB: back, animation: UIViewAnimationOptions.TransitionFlipFromLeft, duration:0.35)
-    }
-    
+    // MARK: API
     func hide(){
         func disappear(){
             UIView.animateWithDuration(0.50, animations: {
@@ -73,14 +71,16 @@ class CardView: UIView {
             })
     }
     
+    func show(){
+        flip(sideA: empty, sideB: back, animation: UIViewAnimationOptions.TransitionFlipFromLeft, duration:0.35)
+    }
+
+    
     func tapped() {
         delegate?.cardTapped(self)
     }
     
-    private func flip(sideA sideA:UIView, sideB:UIView, animation:UIViewAnimationOptions=UIViewAnimationOptions.TransitionFlipFromRight, duration:NSTimeInterval){
-        UIView.transitionFromView(sideA, toView: sideB, duration: duration, options: animation, completion: nil)
-    }
-    
+    // MARK: Private Methods
     private func createCard(imageName:String, color:UIColor) ->UIView{
         
         let imageView = UIImageView(image: UIImage(named: imageName))
@@ -94,5 +94,8 @@ class CardView: UIView {
         return card
     }
 
+    private func flip(sideA sideA:UIView, sideB:UIView, animation:UIViewAnimationOptions=UIViewAnimationOptions.TransitionFlipFromRight, duration:NSTimeInterval){
+        UIView.transitionFromView(sideA, toView: sideB, duration: duration, options: animation, completion: nil)
+    }
 
 }

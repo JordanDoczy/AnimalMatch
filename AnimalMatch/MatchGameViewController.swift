@@ -14,6 +14,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     struct Constants{
         struct Segues{
             static let GameOver = "Game Over"
+            static let Settings = "Show Settings"
         }
         struct Selectors{
             static let FlipCard:Selector = "flipCard:"
@@ -22,6 +23,27 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         }
     }
     
+    // MARK: Private Members
+    private var audioPlayer:AVAudioPlayer?
+    private var cards = [CardView]()
+    private var cardHeight: CGFloat { return self.cardWidth }
+    private var cardsPerRow:Int {
+        switch(numberOfCards){
+        case (0...12):
+            return 4
+        case (13...30):
+            return 5
+        default:
+            return 6
+        }
+    }
+    private var cardWidth: CGFloat { return (view.bounds.width - (spacer * CGFloat(cardsPerRow+1))) / CGFloat(cardsPerRow) }
+    private var currentCard:CardView?
+    private var difficulty:UserSettings.Difficulty?{
+        didSet{
+            reset()
+        }
+    }
     private var images = [
         Assets.Images.Animals.Cat:UIColor(red: 230/255, green: 164/255, blue: 174/255, alpha: 1),
         Assets.Images.Animals.Cow:UIColor(red: 177/255, green: 237/255, blue: 235/255, alpha: 1),
@@ -45,28 +67,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         Assets.Images.Animals.Sheep:UIColor(red: 249/255, green: 221/255, blue: 191/255, alpha: 1),
         Assets.Images.Animals.Zebra:UIColor(red: 169/255, green: 255/255, blue: 190/255, alpha: 1)
     ]
-    
-    // MARK: Private Members
-    private var audioPlayer:AVAudioPlayer?
-    private var cards = [CardView]()
-    private var cardHeight: CGFloat { return self.cardWidth }
-    private var cardsPerRow:Int {
-        switch(numberOfCards){
-        case (0...12):
-            return 4
-        case (13...30):
-            return 5
-        default:
-            return 6
-        }
-    }
-    private var cardWidth: CGFloat { return (view.bounds.width - (spacer * CGFloat(cardsPerRow+1))) / CGFloat(cardsPerRow) }
-    private var currentCard:CardView?
-    private var difficulty:UserSettings.Difficulty?{
-        didSet{
-            reset()
-        }
-    }
+    private var lastCard:CardView?
     private var numberOfCards:Int{
         if let difficultySetting = difficulty{
             switch (difficultySetting) {
@@ -79,9 +80,9 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         return images.count*2
     }
     private var numberOfRows:Int{ return Int((numberOfCards)/cardsPerRow) }
-    private var lastCard:CardView?
     private var spacer:CGFloat = 5.0
     private var timers = [NSTimer]()
+    
     
     // MARK: View Controller LifeCycle
     override func viewDidLoad() {
@@ -99,15 +100,12 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         //performSegueWithIdentifier(Constants.Segues.GameOver, sender: self) // for testing
     }
 
-
     override func viewWillDisappear(animated: Bool) {
-        removeAllTimers()
         super.viewWillDisappear(animated)
     }
     
     
     // MARK: Public Methods
-    
     func cardTapped(card: CardView) {
         func foundMatch(){
             audioPlayer = AVAudioPlayer.playSound(Assets.Sounds.Match)
@@ -205,16 +203,16 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         return cards.count == 0
     }
 
+    private func removeAllTimers(){
+        for timer in timers{
+            removeTimer(timer)
+        }
+    }
+
     private func removeTimer(timer:NSTimer?){
         timer?.invalidate()
         if let index = timers.indexOf(timer!){
             timers.removeAtIndex(index)
-        }
-    }
-    
-    private func removeAllTimers(){
-        for timer in timers{
-            removeTimer(timer)
         }
     }
     
@@ -231,7 +229,6 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         animateCards()
         audioPlayer = AVAudioPlayer.playSound(Assets.Sounds.Start)
     }
- 
 }
 
 

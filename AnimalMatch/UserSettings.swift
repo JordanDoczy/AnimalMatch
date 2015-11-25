@@ -31,7 +31,7 @@ class UserSettings{
 
     var difficulty:Difficulty{
         get {
-            return Difficulty(rawValue:((NSUserDefaults.standardUserDefaults().objectForKey(Constants.Difficultry) as? Int) ?? 0)) ?? Difficulty.Hard
+            return Difficulty(rawValue:((NSUserDefaults.standardUserDefaults().objectForKey(Constants.Difficultry) as? Int) ?? Difficulty.Medium.rawValue)) ?? Difficulty.Medium
         }
         set{
             NSUserDefaults.standardUserDefaults().setInteger(newValue.rawValue, forKey: Constants.Difficultry)

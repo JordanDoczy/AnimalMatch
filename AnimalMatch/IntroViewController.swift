@@ -21,19 +21,21 @@ class IntroViewController: UIViewController {
         }
     }
 
-    private var sounds = [AVAudioPlayer]()
-
+    // MARK: Private Members
     private var background: UIImageView!
     private var cloud1: UIImageView!
     private var cloud2: UIImageView!
     private var foreground: UIImageView!
-    private var mountains: UIImageView!
     private var loaded = false
+    private var mountains: UIImageView!
+    private var sounds = [AVAudioPlayer]()
 
+    // MARK: IBOutlets
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     
+    // MARK: View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         settingsButton.alpha = 0
@@ -64,30 +66,20 @@ class IntroViewController: UIViewController {
         }
     }
     
-    func createImageView(imageName:String) ->UIImageView{
+    // MARK: Private Methods
+    private func createImageView(imageName:String) ->UIImageView{
         let imageView = UIImageView(image: UIImage(named: imageName))
         imageView.frame = CGRect(origin: CGPoint(x:0, y:view.bounds.height), size: CGSize(width: view.bounds.width, height: view.bounds.width * imageView.image!.size.height / imageView.image!.size.width))
         return imageView
     }
     
-    
-    func animateForeground(){
-        foreground = createImageView(Assets.Images.Scenery.Foreground)
-        view.addSubview(foreground)
-        view.sendSubviewToBack(foreground)
-        
-        
-        UIView.animateWithDuration(0.4, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut,
-            animations: { [unowned self] in
-                self.foreground.center.y -= self.foreground.bounds.size.height
-            },
-            completion: { [unowned self] finished in
-                self.animateBackground()
-                
-            }
-        )
+    // MARK: Handlers
+    func pandaTapped(sender:UITapGestureRecognizer){
+        sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Giggle)!)
     }
+
     
+    // MARK: Animate Methods
     func animateBackground(){
     
         background = createImageView(Assets.Images.Scenery.Background)
@@ -103,69 +95,7 @@ class IntroViewController: UIViewController {
                 self.animateMoutains(self.background)
             }
         )
-
     }
-    
-    func animateMoutains(uiView:UIView){
-        
-        mountains = UIImageView(image: UIImage(named: Assets.Images.Scenery.Mountains))
-        let imageWidth = uiView.bounds.width/2
-        let imageHeight = uiView.bounds.width/2 * mountains.image!.size.height / mountains.image!.size.width
-        
-        mountains.frame = CGRect(origin: CGPoint(x:view.bounds.width - imageWidth, y:uiView.center.y - imageHeight ), size: CGSize(width: imageWidth, height: imageHeight))
-        
-        view.addSubview(mountains)
-        view.sendSubviewToBack(mountains)
-        
-        
-        UIView.animateWithDuration(0.3, delay: 0.05, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.CurveLinear,
-            animations: { [unowned self] in
-                self.mountains.center.y -= imageHeight/2
-            },
-            completion: { [unowned self] finished in
-                self.animatePanda()
-                self.animateUI()
-            }
-        )
-    }
-    
-    func animatePanda(){
-        
-        
-        
-        let imageView = UIImageView(image: UIImage(named: Assets.Images.Animals.Panda))
-        let imageWidth:CGFloat = 50
-        let imageHeight = imageWidth * imageView.image!.size.height / imageView.image!.size.width
-        
-        imageView.frame = CGRect(origin: CGPoint(x:20, y: view.bounds.height), size: CGSize(width: imageWidth, height: imageHeight))
-        view.addSubview(imageView)
-        
-        let tapGesture = UITapGestureRecognizer(target:self, action:Constants.Selectors.PandaTapped);
-        imageView.userInteractionEnabled = true
-        imageView.addGestureRecognizer(tapGesture)
-        
-        
-        UIView.animateWithDuration(0.5, delay: 0.25, usingSpringWithDamping: 0.95, initialSpringVelocity: 20, options: UIViewAnimationOptions.CurveLinear,
-            animations: { [unowned self] in
-                imageView.center.y = self.foreground.center.y - imageHeight + 10
-            },
-            completion: nil
-        )
-    }
-
-    
-    func animateUI(){
-        
-        UIView.animateWithDuration(0.4, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut,
-            animations: { [unowned self] in
-                self.startButton.alpha = 1
-                self.titleLabel.alpha = 1
-                self.settingsButton.alpha = 1
-            },
-            completion: nil
-        )
-    }
-
     
     func animateClouds(){
         
@@ -214,13 +144,84 @@ class IntroViewController: UIViewController {
         
         cloud1Animation()
         cloud2Animation()
+    }
+    
+    func animateForeground(){
+        foreground = createImageView(Assets.Images.Scenery.Foreground)
+        view.addSubview(foreground)
+        view.sendSubviewToBack(foreground)
         
+        
+        UIView.animateWithDuration(0.4, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut,
+            animations: { [unowned self] in
+                self.foreground.center.y -= self.foreground.bounds.size.height
+            },
+            completion: { [unowned self] finished in
+                self.animateBackground()
+                
+            }
+        )
     }
 
     
-    func pandaTapped(sender:UITapGestureRecognizer){
-        sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Giggle)!)
+    func animateMoutains(uiView:UIView){
+        
+        mountains = UIImageView(image: UIImage(named: Assets.Images.Scenery.Mountains))
+        let imageWidth = uiView.bounds.width/2
+        let imageHeight = uiView.bounds.width/2 * mountains.image!.size.height / mountains.image!.size.width
+        
+        mountains.frame = CGRect(origin: CGPoint(x:view.bounds.width - imageWidth, y:uiView.center.y - imageHeight ), size: CGSize(width: imageWidth, height: imageHeight))
+        
+        view.addSubview(mountains)
+        view.sendSubviewToBack(mountains)
+        
+        
+        UIView.animateWithDuration(0.3, delay: 0.05, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.CurveLinear,
+            animations: { [unowned self] in
+                self.mountains.center.y -= imageHeight/2
+            },
+            completion: { [unowned self] finished in
+                self.animatePanda()
+                self.animateUI()
+            }
+        )
     }
+
+    
+    func animatePanda(){
+        let imageView = UIImageView(image: UIImage(named: Assets.Images.Animals.Panda))
+        let imageWidth:CGFloat = 50
+        let imageHeight = imageWidth * imageView.image!.size.height / imageView.image!.size.width
+        
+        imageView.frame = CGRect(origin: CGPoint(x:20, y: view.bounds.height), size: CGSize(width: imageWidth, height: imageHeight))
+        view.addSubview(imageView)
+        
+        let tapGesture = UITapGestureRecognizer(target:self, action:Constants.Selectors.PandaTapped);
+        imageView.userInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
+        
+        
+        UIView.animateWithDuration(0.5, delay: 0.25, usingSpringWithDamping: 0.95, initialSpringVelocity: 20, options: UIViewAnimationOptions.CurveLinear,
+            animations: { [unowned self] in
+                imageView.center.y = self.foreground.center.y - imageHeight + 10
+            },
+            completion: nil
+        )
+    }
+    
+    func animateUI(){
+        
+        UIView.animateWithDuration(0.4, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut,
+            animations: { [unowned self] in
+                self.startButton.alpha = 1
+                self.titleLabel.alpha = 1
+                self.settingsButton.alpha = 1
+            },
+            completion: nil
+        )
+    }
+
+    
     
     
     

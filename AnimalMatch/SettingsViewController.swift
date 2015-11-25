@@ -11,18 +11,19 @@ import AVFoundation
 
 class SettingsViewController: UIViewController {
 
+    // MARK Members
     private var audioPlayer:AVAudioPlayer?
-
     @IBOutlet weak var audioSwitch: UISwitch!
     @IBOutlet weak var difficultySelector: UISegmentedControl!
     
-    @IBAction func linkToFreepik(sender: UIButton) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.freepik.com/free-vector/animals-flat-vector-set_715458.htm")!)
-    }
-    
+    // MARK: IBActions
     @IBAction func audioToggle(sender: UISwitch) {
         audioPlayer = AVAudioPlayer.playSound(Assets.Sounds.Click)
         UserSettings.sharedInstance.sound = audioSwitch.on
+    }
+
+    @IBAction func close(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func difficultySelection(sender: UISegmentedControl) {
@@ -32,12 +33,12 @@ class SettingsViewController: UIViewController {
             UserSettings.sharedInstance.difficulty = difficulty
         }
     }
-    
-    @IBAction func close(sender: AnyObject) {
-    
-        self.dismissViewControllerAnimated(true, completion: nil)
+
+    @IBAction func linkToFreepik(sender: UIButton) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.freepik.com/free-vector/animals-flat-vector-set_715458.htm")!)
     }
-    
+
+    // MARK: View Controller Lifecycle
     override func viewDidLoad(){
         super.viewDidLoad()
         audioSwitch.on = UserSettings.sharedInstance.sound

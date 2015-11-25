@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AnimalView : UIView {
+class BalloonView : UIView {
     
     private var _popped = false
     var popped:Bool {
