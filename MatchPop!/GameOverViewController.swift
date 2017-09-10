@@ -84,7 +84,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         sounds.append(AVAudioPlayer.playSound(Assets.Sounds.GameOver)!)
-        createBalloon("POP THE BALLOONS!")
+        _ = createBalloon("POP THE BALLOONS!")
     }
     
     // MARK: Public Methods
@@ -95,7 +95,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
             animalBehavior.removeView(animal)
             
             if !animal.popped {
-                createAnimal(asset)
+                _ = createAnimal(asset)
             }
         }
     }
@@ -127,7 +127,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         }
         
         for index in 0..<numberOfImages{
-            createAnimal(images[index], yOffset: -CGFloat(randomInt(min: Int(view.bounds.size.height * 0.10), max: Int(view.bounds.size.height * 0.75))))
+            _ = createAnimal(images[index], yOffset: -CGFloat(randomInt(min: Int(view.bounds.size.height * 0.10), max: Int(view.bounds.size.height * 0.75))))
         }
         
         timer.invalidate()
