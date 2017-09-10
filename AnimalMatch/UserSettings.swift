@@ -17,24 +17,24 @@ class UserSettings{
     }
     
     enum Difficulty :Int{
-        case Easy = 0, Medium, Hard
+        case easy = 0, medium, hard
     }
     
     var sound:Bool{
         get {
-            return NSUserDefaults.standardUserDefaults().objectForKey(Constants.Sound) as? Bool ?? true
+            return UserDefaults.standard.object(forKey: Constants.Sound) as? Bool ?? true
         }
         set{
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Constants.Sound)
+            UserDefaults.standard.set(newValue, forKey: Constants.Sound)
         }
     }
 
     var difficulty:Difficulty{
         get {
-            return Difficulty(rawValue:((NSUserDefaults.standardUserDefaults().objectForKey(Constants.Difficultry) as? Int) ?? Difficulty.Medium.rawValue)) ?? Difficulty.Medium
+            return Difficulty(rawValue:((UserDefaults.standard.object(forKey: Constants.Difficultry) as? Int) ?? Difficulty.medium.rawValue)) ?? Difficulty.medium
         }
         set{
-            NSUserDefaults.standardUserDefaults().setInteger(newValue.rawValue, forKey: Constants.Difficultry)
+            UserDefaults.standard.set(newValue.rawValue, forKey: Constants.Difficultry)
         }
 
     }

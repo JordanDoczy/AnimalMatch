@@ -10,21 +10,21 @@ import UIKit
 import AVFoundation
 
 protocol CardViewDelegate :class{
-    func cardTapped(card:CardView)
+    func cardTapped(_ card:CardView)
 }
 
 class CardView: UIView {
 
     struct Constants{
         struct Selectors{
-            static let Tapped:Selector = "tapped"
+            static let Tapped:Selector = #selector(CardView.tapped)
         }
     }
 
     // MARK: Private Members
-    private var back: UIView!
-    private var front: UIView!
-    private var empty: UIView!
+    fileprivate var back: UIView!
+    fileprivate var front: UIView!
+    fileprivate var empty: UIView!
 
     // MARK: Public Members
     weak var delegate:CardViewDelegate?
@@ -34,45 +34,45 @@ class CardView: UIView {
             return subviews.contains(front)
         }
         set{
-            userInteractionEnabled = !newValue
-            flip(sideA: newValue ? back : front, sideB: newValue ? front : back, animation: newValue ? UIViewAnimationOptions.TransitionFlipFromLeft : UIViewAnimationOptions.TransitionFlipFromRight, duration: newValue ? 0.4 : 0.55)
+            isUserInteractionEnabled = !newValue
+            flip(sideA: newValue ? back : front, sideB: newValue ? front : back, animation: newValue ? UIViewAnimationOptions.transitionFlipFromLeft : UIViewAnimationOptions.transitionFlipFromRight, duration: newValue ? 0.4 : 0.55)
         }
     }
 
     // MARK: INIT
-    convenience init(frame: CGRect, back backImage:String, front frontImage:String, color:UIColor=UIColor.clearColor()) {
+    convenience init(frame: CGRect, back backImage:String, front frontImage:String, color:UIColor=UIColor.clear) {
         self.init(frame:frame)
         
         value = frontImage
         back = createCard(backImage, color: UIColor(red: 206/255, green: 240/255, blue: 253/255, alpha: 1.0))
         front = createCard(frontImage, color: color)
-        empty = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: bounds.width, height: bounds.height)))
+        empty = UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: bounds.width, height: bounds.height)))
         addSubview(empty)
         
         let singleTap = UITapGestureRecognizer(target: self, action: Constants.Selectors.Tapped)
         singleTap.numberOfTapsRequired = 1
         addGestureRecognizer(singleTap)
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
     }
     
     // MARK: API
     func hide(){
         func disappear(){
-            UIView.animateWithDuration(0.50, animations: {
+            UIView.animate(withDuration: 0.50, animations: {
                 self.alpha=0
-                self.transform = CGAffineTransformMakeScale(0.1, 0.1)
+                self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
                 })
         }
         
-        UIView.animateWithDuration(0.55, animations: {
-            self.transform = CGAffineTransformMakeScale(1.5, 1.5)
+        UIView.animate(withDuration: 0.55, animations: {
+            self.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
             }, completion: { finished in
                 disappear()
             })
     }
     
     func show(){
-        flip(sideA: empty, sideB: back, animation: UIViewAnimationOptions.TransitionFlipFromLeft, duration:0.35)
+        flip(sideA: empty, sideB: back, animation: UIViewAnimationOptions.transitionFlipFromLeft, duration:0.35)
     }
 
     
@@ -81,12 +81,12 @@ class CardView: UIView {
     }
     
     // MARK: Private Methods
-    private func createCard(imageName:String, color:UIColor) ->UIView{
+    fileprivate func createCard(_ imageName:String, color:UIColor) ->UIView{
         
         let imageView = UIImageView(image: UIImage(named: imageName))
-        imageView.frame = CGRect(origin: CGPointZero, size: CGSize(width: bounds.width, height: bounds.height))
+        imageView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: bounds.width, height: bounds.height))
         
-        let card = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: bounds.width, height: bounds.height)))
+        let card = UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: bounds.width, height: bounds.height)))
         card.layer.cornerRadius = 8.0
         card.backgroundColor = color
         card.addSubview(imageView)
@@ -94,8 +94,8 @@ class CardView: UIView {
         return card
     }
 
-    private func flip(sideA sideA:UIView, sideB:UIView, animation:UIViewAnimationOptions=UIViewAnimationOptions.TransitionFlipFromRight, duration:NSTimeInterval){
-        UIView.transitionFromView(sideA, toView: sideB, duration: duration, options: animation, completion: nil)
+    fileprivate func flip(sideA:UIView, sideB:UIView, animation:UIViewAnimationOptions=UIViewAnimationOptions.transitionFlipFromRight, duration:TimeInterval){
+        UIView.transition(from: sideA, to: sideB, duration: duration, options: animation, completion: nil)
     }
 
 }
