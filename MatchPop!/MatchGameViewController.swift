@@ -8,6 +8,19 @@
 
 import UIKit
 import AVFoundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class MatchGameViewController: UIViewController, CardViewDelegate {
     
@@ -17,17 +30,17 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
             static let Settings = "Show Settings"
         }
         struct Selectors{
-            static let FlipCard:Selector = "flipCard:"
-            static let FlipTwoCards:Selector = "flipTwoCards:"
-            static let Show:Selector = "show"
+            static let FlipCard:Selector = #selector(MatchGameViewController.flipCard(_:))
+            static let FlipTwoCards:Selector = #selector(MatchGameViewController.flipTwoCards(_:))
+            static let Show:Selector = #selector(UIAlertView.show)
         }
     }
     
     // MARK: Private Members
-    private var audioPlayer:AVAudioPlayer?
-    private var cards = [CardView]()
-    private var cardHeight: CGFloat { return self.cardWidth }
-    private var cardsPerRow:Int {
+    fileprivate var audioPlayer:AVAudioPlayer?
+    fileprivate var cards = [CardView]()
+    fileprivate var cardHeight: CGFloat { return self.cardWidth }
+    fileprivate var cardsPerRow:Int {
         switch(numberOfCards){
         case (0...12):
             return 4
@@ -37,14 +50,14 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
             return 6
         }
     }
-    private var cardWidth: CGFloat { return (view.bounds.width - (spacer * CGFloat(cardsPerRow+1))) / CGFloat(cardsPerRow) }
-    private var currentCard:CardView?
-    private var difficulty:UserSettings.Difficulty?{
+    fileprivate var cardWidth: CGFloat { return (view.bounds.width - (spacer * CGFloat(cardsPerRow+1))) / CGFloat(cardsPerRow) }
+    fileprivate var currentCard:CardView?
+    fileprivate var difficulty:UserSettings.Difficulty?{
         didSet{
             reset()
         }
     }
-    private var images = [
+    fileprivate var images = [
         Assets.Images.Animals.Cat:UIColor(red: 230/255, green: 164/255, blue: 174/255, alpha: 1),
         Assets.Images.Animals.Cow:UIColor(red: 177/255, green: 237/255, blue: 235/255, alpha: 1),
         Assets.Images.Animals.Deer:UIColor(red: 246/255, green: 197/255, blue: 127/255, alpha: 1),
@@ -67,21 +80,21 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         Assets.Images.Animals.Sheep:UIColor(red: 249/255, green: 221/255, blue: 191/255, alpha: 1),
         Assets.Images.Animals.Zebra:UIColor(red: 169/255, green: 255/255, blue: 190/255, alpha: 1)
     ]
-    private var lastCard:CardView?
-    private var numberOfCards:Int{
+    fileprivate var lastCard:CardView?
+    fileprivate var numberOfCards:Int{
         if let difficultySetting = difficulty{
             switch (difficultySetting) {
-            case UserSettings.Difficulty.Easy: return 12
-            case UserSettings.Difficulty.Medium: return 30
-            case UserSettings.Difficulty.Hard: return 42
+            case UserSettings.Difficulty.easy: return 12
+            case UserSettings.Difficulty.medium: return 30
+            case UserSettings.Difficulty.hard: return 42
             }
         }
         
         return images.count*2
     }
-    private var numberOfRows:Int{ return Int((numberOfCards)/cardsPerRow) }
-    private var spacer:CGFloat = 5.0
-    private var timers = [NSTimer]()
+    fileprivate var numberOfRows:Int{ return Int((numberOfCards)/cardsPerRow) }
+    fileprivate var spacer:CGFloat = 5.0
+    fileprivate var timers = [Timer]()
     
     
     // MARK: View Controller LifeCycle
@@ -90,7 +103,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         difficulty = UserSettings.sharedInstance.difficulty
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if difficulty != UserSettings.sharedInstance.difficulty{
@@ -100,27 +113,27 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         //performSegueWithIdentifier(Constants.Segues.GameOver, sender: self) // for testing
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
     
     
     // MARK: Public Methods
-    func cardTapped(card: CardView) {
+    func cardTapped(_ card: CardView) {
         func foundMatch(){
             audioPlayer = AVAudioPlayer.playSound(Assets.Sounds.Match)
             currentCard!.hide()
             lastCard!.hide()
             
-            view.bringSubviewToFront(currentCard!)
-            view.bringSubviewToFront(lastCard!)
+            view.bringSubview(toFront: currentCard!)
+            view.bringSubview(toFront: lastCard!)
             
             
-            cards.removeAtIndex(cards.indexOf(currentCard!)!)
-            cards.removeAtIndex(cards.indexOf(lastCard!)!)
+            cards.remove(at: cards.index(of: currentCard!)!)
+            cards.remove(at: cards.index(of: lastCard!)!)
 
             if isGameOver() {
-                performSegueWithIdentifier(Constants.Segues.GameOver, sender: self)
+                performSegue(withIdentifier: Constants.Segues.GameOver, sender: self)
             }
         }
         
@@ -135,7 +148,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
                 foundMatch()
             }
             else{
-                addTimer(NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: Constants.Selectors.FlipTwoCards, userInfo: [currentCard!, lastCard!], repeats: false))
+                addTimer(Timer.scheduledTimer(timeInterval: 1.25, target: self, selector: Constants.Selectors.FlipTwoCards, userInfo: [currentCard!, lastCard!], repeats: false))
             }
             currentCard = nil
             lastCard = nil
@@ -144,19 +157,19 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         card.visible = true
     }
     
-    func flipCard(timer:NSTimer?){
+    func flipCard(_ timer:Timer?){
         if let card = timer?.userInfo as? CardView{
             card.visible = false
             removeTimer(timer)
         }
     }
     
-    func flipTwoCards(timer:NSTimer?){
+    func flipTwoCards(_ timer:Timer?){
         
         if let cards = timer?.userInfo as? [CardView]{
             if cards.count == 2 {
                 cards[0].visible = false
-                addTimer(NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Constants.Selectors.FlipCard, userInfo: cards[1], repeats: false))
+                addTimer(Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: Constants.Selectors.FlipCard, userInfo: cards[1], repeats: false))
             }
         }
         
@@ -164,19 +177,19 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     }
     
     // MARK: Private Methods
-    private func addTimer(timer:NSTimer){
-        if timers.indexOf(timer) < 0 {
+    fileprivate func addTimer(_ timer:Timer){
+        if timers.index(of: timer) < 0 {
             timers.append(timer)
         }
     }
     
-    private func animateCards(){
+    fileprivate func animateCards(){
         for i in 0..<cards.count{
-            addTimer(NSTimer.scheduledTimerWithTimeInterval(Double(i) * 0.015, target: cards[i], selector: Constants.Selectors.Show, userInfo: nil, repeats: false))
+            addTimer(Timer.scheduledTimer(timeInterval: Double(i) * 0.015, target: cards[i], selector: Constants.Selectors.Show, userInfo: nil, repeats: false))
         }
     }
 
-    private func createCards(){
+    fileprivate func createCards(){
         cards = []
         
         var cardImages = Array(Array(images.keys).shuffle()[0..<(numberOfCards/2)])
@@ -188,35 +201,35 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
             
             let row = Int(floor(CGFloat(count/cardsPerRow)))
             let column = Int(count % cardsPerRow)
-            let image = cardImages.removeAtIndex(Int(arc4random_uniform(UInt32(cardImages.count))))
+            let image = cardImages.remove(at: Int(arc4random_uniform(UInt32(cardImages.count))))
             let card = CardView(frame: CGRect(origin: CGPoint(x: CGFloat(column) * (cardWidth + spacer) + spacer, y: CGFloat(row) * (cardHeight + spacer) + CGFloat(yOffSet)), size: CGSize(width: cardWidth, height: cardHeight)), back: Assets.Images.Card, front: image, color:images[image]!)
             card.delegate = self
             
             
             view.addSubview(card)
             cards += [card]
-            count++
+            count += 1
         }
     }
     
-    private func isGameOver() ->Bool {
+    fileprivate func isGameOver() ->Bool {
         return cards.count == 0
     }
 
-    private func removeAllTimers(){
+    fileprivate func removeAllTimers(){
         for timer in timers{
             removeTimer(timer)
         }
     }
 
-    private func removeTimer(timer:NSTimer?){
+    fileprivate func removeTimer(_ timer:Timer?){
         timer?.invalidate()
-        if let index = timers.indexOf(timer!){
-            timers.removeAtIndex(index)
+        if let index = timers.index(of: timer!){
+            timers.remove(at: index)
         }
     }
     
-    private func reset(){
+    fileprivate func reset(){
         lastCard = nil
         currentCard = nil
         _ = view.subviews.map(){
@@ -232,25 +245,26 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
 }
 
 
-extension CollectionType {
+extension Collection {
     /// Return a copy of `self` with its elements shuffled
-    func shuffle() -> [Generator.Element] {
+    func shuffle() -> [Iterator.Element] {
         var list = Array(self)
         list.shuffleInPlace()
         return list
     }
 }
 
-extension MutableCollectionType where Index == Int {
+extension MutableCollection where Index == Int {
     /// Shuffle the elements of `self` in-place.
     mutating func shuffleInPlace() {
         // empty and single-element collections don't shuffle
-        if count < 2 { return }
-        
-        for i in 0..<count - 1 {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
-            guard i != j else { continue }
-            swap(&self[i], &self[j])
+        guard count > 2 else { return }
+
+        for i in startIndex ..< endIndex - 1 {
+            let j = Int(arc4random_uniform(UInt32(endIndex - i))) + i
+            if i != j {
+                swap(&self[i], &self[j])
+            }
         }
     }
 }

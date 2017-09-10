@@ -18,14 +18,14 @@ class AnimalBehavior : UIDynamicBehavior {
             static let Top      = "top"
         }
     }
-    private lazy var collisionBehavior: UICollisionBehavior = {
+    fileprivate lazy var collisionBehavior: UICollisionBehavior = {
         let lazy = UICollisionBehavior()
-        lazy.collisionMode = UICollisionBehaviorMode.Boundaries
+        lazy.collisionMode = UICollisionBehaviorMode.boundaries
         return lazy
     }() 
-    private let gravityBehavior = UIGravityBehavior()
-    private var pushBeaviors = [UIView:UIPushBehavior]()
-    private lazy var animalBehavior: UIDynamicItemBehavior = {
+    fileprivate let gravityBehavior = UIGravityBehavior()
+    fileprivate var pushBeaviors = [UIView:UIPushBehavior]()
+    fileprivate lazy var animalBehavior: UIDynamicItemBehavior = {
         let lazy = UIDynamicItemBehavior()
         lazy.allowsRotation = false
         return lazy
@@ -33,10 +33,10 @@ class AnimalBehavior : UIDynamicBehavior {
     
     var boundary:CGRect? {
         didSet{
-            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Left, fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height))
-            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Right, fromPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y + boundary!.size.height))
-            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Top, fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y))
-            collisionBehavior.addBoundaryWithIdentifier(Constants.Boundaries.Bottom, fromPoint: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height), toPoint: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y  + boundary!.size.height))
+            collisionBehavior.addBoundary(withIdentifier: Constants.Boundaries.Left as NSCopying, from: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), to: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height))
+            collisionBehavior.addBoundary(withIdentifier: Constants.Boundaries.Right as NSCopying, from: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y), to: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y + boundary!.size.height))
+            collisionBehavior.addBoundary(withIdentifier: Constants.Boundaries.Top as NSCopying, from: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y), to: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y))
+            collisionBehavior.addBoundary(withIdentifier: Constants.Boundaries.Bottom as NSCopying, from: CGPoint(x: boundary!.origin.x, y: boundary!.origin.y + boundary!.size.height), to: CGPoint(x: boundary!.origin.x + boundary!.size.width, y: boundary!.origin.y  + boundary!.size.height))
         }
     }
     
@@ -57,13 +57,13 @@ class AnimalBehavior : UIDynamicBehavior {
         addChildBehavior(animalBehavior)
     }
     
-    func addView(view:UIView){
+    func addView(_ view:UIView){
         addToSuperview(view)
         animalBehavior.addItem(view)
         collisionBehavior.addItem(view)
     }
     
-    func removeView(view:UIView){
+    func removeView(_ view:UIView){
         animalBehavior.removeItem(view)
         collisionBehavior.removeItem(view)
         gravityBehavior.removeItem(view)
@@ -71,26 +71,26 @@ class AnimalBehavior : UIDynamicBehavior {
         view.removeFromSuperview()
     }
 
-    func addGravityBehavior(view: UIView){
+    func addGravityBehavior(_ view: UIView){
         addToSuperview(view)
         gravityBehavior.addItem(view)
     }
     
-    func removeGravityBehavior(view: UIView){
+    func removeGravityBehavior(_ view: UIView){
         gravityBehavior.removeItem(view)
     }
     
-    func continuousPush(view:UIView, vector:CGVector){
+    func continuousPush(_ view:UIView, vector:CGVector){
         addToSuperview(view)
-        let behavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.Continuous)
+        let behavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.continuous)
         behavior.pushDirection = vector
         addChildBehavior(behavior)
         pushBeaviors[view] = behavior
     }
     
-    func instantaneousPush(view:UIView, vector:CGVector){
+    func instantaneousPush(_ view:UIView, vector:CGVector){
         addToSuperview(view)
-        let behavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.Instantaneous)
+        let behavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.instantaneous)
         behavior.pushDirection = vector
         behavior.action = { [unowned behavior] in
             behavior.dynamicAnimator?.removeBehavior(behavior)
@@ -99,15 +99,15 @@ class AnimalBehavior : UIDynamicBehavior {
     }
 
     
-    func stopContinuousPush(view:UIView){
+    func stopContinuousPush(_ view:UIView){
         if let behavior = pushBeaviors[view]{
             behavior.removeItem(view)
             removeChildBehavior(behavior)
-            pushBeaviors.removeValueForKey(view)
+            pushBeaviors.removeValue(forKey: view)
         }
     }
     
-    private func addToSuperview(view:UIView){
+    fileprivate func addToSuperview(_ view:UIView){
         if let superview = dynamicAnimator?.referenceView {
             if !superview.subviews.contains(view){
                 superview.addSubview(view)

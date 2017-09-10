@@ -11,22 +11,22 @@ import AVFoundation
 
 class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICollisionBehaviorDelegate {
 
-    private struct Constants{
+    fileprivate struct Constants{
         struct Segues{
             static let PlayAgain:String = "Play Again"
         }
         struct Selectors{
-            static let CreateAnimals:Selector   = "createAnimals:"
-            static let PlayAgain:Selector       = "playAgain:"
-            static let PopBalloon:Selector      = "popBalloon:"
+            static let CreateAnimals:Selector   = #selector(GameOverViewController.createAnimals(_:))
+            static let PlayAgain:Selector       = #selector(GameOverViewController.playAgain(_:))
+            static let PopBalloon:Selector      = #selector(GameOverViewController.popBalloon(_:))
         }
     }
     
     // MARK: Private Members
-    private let animalBehavior = AnimalBehavior()
-    private var animator:UIDynamicAnimator!
-    private var balloon:BalloonView?
-    private let balloons = [
+    fileprivate let animalBehavior = AnimalBehavior()
+    fileprivate var animator:UIDynamicAnimator!
+    fileprivate var balloon:BalloonView?
+    fileprivate let balloons = [
         Assets.Images.Balloons.Red,
         Assets.Images.Balloons.Orange,
         Assets.Images.Balloons.Yellow,
@@ -34,7 +34,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         Assets.Images.Balloons.Blue,
         Assets.Images.Balloons.Purple
     ]
-    private let images = [
+    fileprivate let images = [
         Assets.Images.Animals.Cat,
         Assets.Images.Animals.Cow,
         Assets.Images.Animals.Deer,
@@ -57,19 +57,19 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         Assets.Images.Animals.Sheep,
         Assets.Images.Animals.Zebra
     ]
-    private var imageWidth:CGFloat {
+    fileprivate var imageWidth:CGFloat {
         return view.bounds.width / 10
     }
-    private var numberOfImages:Int{
+    fileprivate var numberOfImages:Int{
         switch (UserSettings.sharedInstance.difficulty) {
-        case UserSettings.Difficulty.Easy: return 6
-        case UserSettings.Difficulty.Medium: return 11
+        case UserSettings.Difficulty.easy: return 6
+        case UserSettings.Difficulty.medium: return 11
         default: return images.count
         }
     }
-    private var pops = 0
-    private let spacer: CGFloat = 5
-    private var sounds = [AVAudioPlayer]()
+    fileprivate var pops = 0
+    fileprivate let spacer: CGFloat = 5
+    fileprivate var sounds = [AVAudioPlayer]()
     
     // MARK : View Controller Lifecycle
     override func viewDidLoad() {
@@ -81,14 +81,14 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         animalBehavior.boundary = CGRect(x: -50, y: -100, width: view.bounds.width + 100, height: view.bounds.height + 300)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         sounds.append(AVAudioPlayer.playSound(Assets.Sounds.GameOver)!)
         createBalloon("POP THE BALLOONS!")
     }
     
     // MARK: Public Methods
-    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, atPoint p: CGPoint){
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint){
         
         if let animal = item as? BalloonView{
             let asset = animal.animalAsset!
@@ -100,7 +100,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         }
     }
     
-    func createAnimal(asset:String, yOffset:CGFloat = 0) ->BalloonView{
+    func createAnimal(_ asset:String, yOffset:CGFloat = 0) ->BalloonView{
         
         let randomX = randomInt(min: Int(imageWidth), max: Int(view.bounds.size.width - imageWidth))
         let animal = BalloonView(frame: CGRect(origin: CGPoint(x: CGFloat(randomX), y:view.bounds.height + 70 + yOffset), size: CGSize(width: imageWidth, height: imageWidth)))
@@ -116,7 +116,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         return animal
     }
 
-    func createAnimals(timer:NSTimer){
+    func createAnimals(_ timer:Timer){
 
         if let balloon = timer.userInfo as? BalloonView{
             balloon.subviews.filter(){ $0 is UILabel }.first?.removeFromSuperview()
@@ -133,7 +133,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         timer.invalidate()
     }
 
-    func createBalloon(text:String, autoPop:Bool = true)->BalloonView{
+    func createBalloon(_ text:String, autoPop:Bool = true)->BalloonView{
         
         let balloon = BalloonView()
         balloon.frame.size.width = view.bounds.width / 2
@@ -149,19 +149,19 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         label.frame.origin.x = 0
         label.text = text
         label.numberOfLines = 4
-        label.textColor = UIColor.whiteColor()
-        label.textAlignment = NSTextAlignment.Center
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: "ChalkboardSE-Light", size: 15)!
         balloon.addSubview(label)
         
         
-        UIView.animateWithDuration(2,
+        UIView.animate(withDuration: 2,
             animations: { [unowned self] in
                 balloon.frame.origin.y = self.view.bounds.height / 4
             },
             completion: { [unowned self] success in
                 if autoPop {
-                    NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Constants.Selectors.CreateAnimals, userInfo: balloon, repeats: false)
+                    Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: Constants.Selectors.CreateAnimals, userInfo: balloon, repeats: false)
                 }
             }
         )
@@ -169,10 +169,10 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         return balloon
     }
     
-    func popBalloon(sender:UITapGestureRecognizer){
+    func popBalloon(_ sender:UITapGestureRecognizer){
         if let animal = sender.view as? BalloonView {
             animal.pop()
-            animal.userInteractionEnabled = false
+            animal.isUserInteractionEnabled = false
             animal.removeGestureRecognizer(sender)
             sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Pop)!)
             
@@ -198,10 +198,10 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
             animalBehavior.instantaneousPush(animal, vector: CGVector(dx: 0, dy: -0.75))
             animalBehavior.addGravityBehavior(animal)
             
-            pops++
+            pops += 1
             if pops == numberOfImages {
                 let tap = UITapGestureRecognizer(target: self, action: Constants.Selectors.PlayAgain)
-                view.userInteractionEnabled = true
+                view.isUserInteractionEnabled = true
                 view.addGestureRecognizer(tap)
                 balloon = createBalloon("YOU WIN!\rPLAY AGAIN?", autoPop: false)
             }
@@ -209,15 +209,15 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         }
     }
     
-    func playAgain(sender:UITapGestureRecognizer){
+    func playAgain(_ sender:UITapGestureRecognizer){
         sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Pop)!)
         balloon!.subviews.filter(){ $0 is UILabel }.first?.removeFromSuperview()
         balloon!.pop(){ [unowned self] in
-            self.performSegueWithIdentifier(Constants.Segues.PlayAgain, sender: self)
+            self.performSegue(withIdentifier: Constants.Segues.PlayAgain, sender: self)
         }
     }
     
-    func push(animal:BalloonView){
+    func push(_ animal:BalloonView){
         
         var speed = drand48()
         speed = speed < 0.45 ? 0.45 : speed
@@ -227,7 +227,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
     
     
     // MARK: Private Methods
-    private func randomInt(min min: Int, max: Int) -> Int {
+    fileprivate func randomInt(min: Int, max: Int) -> Int {
         if max < min { return min }
         return Int(arc4random_uniform(UInt32((max - min) + 1))) + min
     }

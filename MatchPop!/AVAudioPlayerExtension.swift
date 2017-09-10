@@ -11,12 +11,12 @@ import AVFoundation
 
 
 extension AVAudioPlayer{
-    static func playSound(fileName:String, type:String="wav") ->AVAudioPlayer? {
+    static func playSound(_ fileName:String, type:String="wav") ->AVAudioPlayer? {
         var player:AVAudioPlayer? = nil
-        let audioPath = NSBundle.mainBundle().pathForResource(fileName, ofType: "wav")
+        let audioPath = Bundle.main.path(forResource: fileName, ofType: "wav")
         
         do {
-            try player = AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: audioPath!))
+            try player = AVAudioPlayer(contentsOf: URL(fileURLWithPath: audioPath!))
             if UserSettings.sharedInstance.sound {
                 player!.play()
             }
