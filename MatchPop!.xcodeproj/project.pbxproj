@@ -94,7 +94,7 @@
 		E616C6FB1C03DFBE00231BD9 = {
 			isa = PBXGroup;
 			children = (
-				E616C7061C03DFBE00231BD9 /* AnimalMatchPop */,
+				E616C7061C03DFBE00231BD9 /* MatchPop! */,
 				E616C7051C03DFBE00231BD9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,7 +107,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E616C7061C03DFBE00231BD9 /* AnimalMatchPop */ = {
+		E616C7061C03DFBE00231BD9 /* MatchPop! */ = {
 			isa = PBXGroup;
 			children = (
 				E616C7101C03DFBE00231BD9 /* LaunchScreen.storyboard */,
@@ -119,8 +119,7 @@
 				E616C72C1C03E03B00231BD9 /* Supporting */,
 				E616C7131C03DFBE00231BD9 /* Info.plist */,
 			);
-			name = AnimalMatchPop;
-			path = AnimalMatch;
+			path = "MatchPop!";
 			sourceTree = "<group>";
 		};
 		E616C7191C03DFF000231BD9 /* Controllers */ = {
@@ -423,7 +422,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Doczy (B6QLV77ZPQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = AnimalMatch/Info.plist;
+				INFOPLIST_FILE = "MatchPop!/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jordandoczy.MatchPop;
@@ -443,7 +442,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Doczy (YW7WUV924U)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = AnimalMatch/Info.plist;
+				INFOPLIST_FILE = "MatchPop!/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jordandoczy.MatchPop;
