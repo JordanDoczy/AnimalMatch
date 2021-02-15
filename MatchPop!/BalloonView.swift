@@ -23,7 +23,7 @@ class BalloonView : UIView {
             balloon!.frame.size = CGSize(width: frame.size.width, height: frame.size.width * balloon!.image!.ratio)
             animal?.center.x = balloon!.center.x
             addSubview(balloon!)
-            sendSubview(toBack: balloon!)
+            sendSubviewToBack(balloon!)
         }
     }
     

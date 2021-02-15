@@ -1,57 +1,55 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hkI-e7-8ZY">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hkI-e7-8ZY">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Match Game-->
         <scene sceneID="He2-vj-CRV">
             <objects>
-                <viewController title="Match Game" id="X2h-07-Y96" customClass="MatchGameViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Match Game" id="X2h-07-Y96" customClass="MatchGameViewController" customModule="MatchPop_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mjx-SP-TUX"/>
                         <viewControllerLayoutGuide type="bottom" id="kZb-Ww-EXF"/>
                     </layoutGuides>
                     <view key="view" contentMode="redraw" id="d2g-2M-fcp">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="bh4-Y0-MRM">
-                                <rect key="frame" x="438" y="510" width="142" height="82"/>
-                                <animations/>
+                                <rect key="frame" x="252" y="772" width="142" height="82"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="142" id="Fcu-hk-gS0"/>
                                     <constraint firstAttribute="height" constant="82" id="ghY-jm-fRv"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRf-nx-mLh">
-                                <rect key="frame" x="496" y="20" width="84" height="38"/>
-                                <animations/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRf-nx-mLh">
+                                <rect key="frame" x="310" y="44" width="84" height="38"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="18"/>
                                 <state key="normal" title="SETTINGS">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="06o-W5-2Vk" kind="presentation" identifier="Show Settings" modalTransitionStyle="crossDissolve" id="38X-Mm-Dck"/>
+                                    <segue destination="06o-W5-2Vk" kind="presentation" identifier="Show Settings" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="38X-Mm-Dck"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="Lad-Fg-5z5">
-                                <rect key="frame" x="20" y="20" width="120" height="60"/>
-                                <animations/>
+                                <rect key="frame" x="20" y="44" width="120" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="jlM-1J-OAJ"/>
                                     <constraint firstAttribute="height" constant="60" id="zOc-R0-XoR"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="0.64313725489999995" green="0.90196078430000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.64313725489999995" green="0.90196078430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="Lad-Fg-5z5" secondAttribute="leading" id="2Ml-Hb-ecF"/>
                             <constraint firstItem="kZb-Ww-EXF" firstAttribute="top" secondItem="bh4-Y0-MRM" secondAttribute="bottom" constant="8" symbolic="YES" id="8iW-39-AdS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lad-Fg-5z5" secondAttribute="trailing" constant="418" id="Ivm-Qr-bo9"/>
+                            <constraint firstItem="CRf-nx-mLh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Lad-Fg-5z5" secondAttribute="trailing" constant="8" symbolic="YES" id="NWl-yF-7hq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bh4-Y0-MRM" secondAttribute="trailing" id="Pdb-IO-bWM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CRf-nx-mLh" secondAttribute="trailing" id="TjQ-K3-UiG"/>
                             <constraint firstItem="bh4-Y0-MRM" firstAttribute="trailing" secondItem="CRf-nx-mLh" secondAttribute="trailing" id="U6N-W7-vOM"/>
@@ -68,110 +66,98 @@
                     </view>
                     <navigationItem key="navigationItem" id="LLs-Sw-VQJ"/>
                     <connections>
-                        <segue destination="jZG-LV-L2k" kind="presentation" identifier="Game Over" modalTransitionStyle="crossDissolve" id="CH3-Id-Zsz"/>
+                        <segue destination="jZG-LV-L2k" kind="presentation" identifier="Game Over" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="CH3-Id-Zsz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0WK-sS-vdN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-625" y="218"/>
+            <point key="canvasLocation" x="-1339" y="225"/>
         </scene>
         <!--Game Over!-->
         <scene sceneID="Pn2-XG-rKE">
             <objects>
-                <viewController title="Game Over!" id="jZG-LV-L2k" customClass="GameOverViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Game Over!" id="jZG-LV-L2k" customClass="GameOverViewController" customModule="MatchPop_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cMd-Op-fNv"/>
                         <viewControllerLayoutGuide type="bottom" id="ZGe-o5-hpC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="srH-rA-Krf">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GlR-Nz-ZRQ">
-                                <rect key="frame" x="457" y="20" width="123" height="46"/>
-                                <animations/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GlR-Nz-ZRQ">
+                                <rect key="frame" x="271" y="44" width="123" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="pjp-ga-Lad"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                 <state key="normal" title="PLAY AGAIN?">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hkI-e7-8ZY" kind="presentation" identifier="Play Again" modalTransitionStyle="crossDissolve" id="L5h-RY-ern"/>
+                                    <segue destination="hkI-e7-8ZY" kind="presentation" identifier="Play Again" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="L5h-RY-ern"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="0.70379212030000005" green="0.92204662000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.70379212030000005" green="0.92204662000000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GlR-Nz-ZRQ" firstAttribute="top" secondItem="cMd-Op-fNv" secondAttribute="bottom" id="4Ml-3I-lTx"/>
+                            <constraint firstItem="GlR-Nz-ZRQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="srH-rA-Krf" secondAttribute="leading" symbolic="YES" id="kVU-4c-oV5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GlR-Nz-ZRQ" secondAttribute="trailing" id="rJK-uw-VPW"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHn-T6-zPT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-625" y="922"/>
+            <point key="canvasLocation" x="-490" y="976"/>
         </scene>
         <!--Intro View Controller-->
         <scene sceneID="dMO-tZ-DKI">
             <objects>
-                <viewController id="hkI-e7-8ZY" customClass="IntroViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hkI-e7-8ZY" customClass="IntroViewController" customModule="MatchPop_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6kz-xy-ek6"/>
                         <viewControllerLayoutGuide type="bottom" id="Jxz-qt-3Zc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2n8-ov-OV2">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANIMAL MATCH POP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnK-O3-LbY">
-                                <rect key="frame" x="156.5" y="217.5" width="288" height="42.5"/>
-                                <animations/>
+                                <rect key="frame" x="63" y="365.5" width="288" height="42.5"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="30"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="-1" height="1"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ldj-2G-Tuw">
+                                <rect key="frame" x="310" y="52" width="84" height="38"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="18"/>
+                                <state key="normal" title="SETTINGS">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="06o-W5-2Vk" kind="presentation" identifier="New Game" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="MfD-rw-bwa"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAd-Ug-8Pk">
-                                <rect key="frame" x="234" y="268" width="132" height="64"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="182" id="XdP-eG-e2r"/>
-                                </constraints>
+                                <rect key="frame" x="141" y="416" width="132" height="64"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="18"/>
                                 <size key="titleShadowOffset" width="2" height="2"/>
                                 <state key="normal" title="  START" image="play"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="XdP-eG-e2r"/>
-                                    </mask>
-                                </variation>
                                 <connections>
-                                    <segue destination="X2h-07-Y96" kind="presentation" identifier="New Game" modalTransitionStyle="crossDissolve" id="j6A-cx-zQL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ldj-2G-Tuw">
-                                <rect key="frame" x="496" y="28" width="84" height="38"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="18"/>
-                                <state key="normal" title="SETTINGS">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="06o-W5-2Vk" kind="presentation" identifier="Show Settings" modalTransitionStyle="crossDissolve" id="MfD-rw-bwa"/>
+                                    <segue destination="X2h-07-Y96" kind="presentation" identifier="New Game" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="j6A-cx-zQL"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="0.64313725489999995" green="0.90196078430000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.64313725489999995" green="0.90196078430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ldj-2G-Tuw" firstAttribute="top" secondItem="6kz-xy-ek6" secondAttribute="bottom" constant="8" symbolic="YES" id="8PN-Vn-VV1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ldj-2G-Tuw" secondAttribute="trailing" id="Ahb-sc-6U3"/>
                             <constraint firstItem="hAd-Ug-8Pk" firstAttribute="centerY" secondItem="2n8-ov-OV2" secondAttribute="centerY" id="Aom-hT-OZm"/>
                             <constraint firstItem="Ldj-2G-Tuw" firstAttribute="baseline" secondItem="bnK-O3-LbY" secondAttribute="baseline" constant="-191" id="Cab-U8-TSq"/>
                             <constraint firstItem="hAd-Ug-8Pk" firstAttribute="top" secondItem="bnK-O3-LbY" secondAttribute="bottom" constant="8" symbolic="YES" id="Dvz-YU-h69"/>
+                            <constraint firstItem="Ldj-2G-Tuw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2n8-ov-OV2" secondAttribute="leading" constant="20" symbolic="YES" id="JjF-sH-E4Z"/>
                             <constraint firstItem="bnK-O3-LbY" firstAttribute="top" secondItem="6kz-xy-ek6" secondAttribute="bottom" constant="192" id="K5s-vo-Bzx"/>
                             <constraint firstItem="bnK-O3-LbY" firstAttribute="centerY" secondItem="hAd-Ug-8Pk" secondAttribute="centerY" id="a8m-k3-NJu"/>
                             <constraint firstItem="hAd-Ug-8Pk" firstAttribute="centerX" secondItem="2n8-ov-OV2" secondAttribute="centerX" id="b4G-GJ-yd5"/>
@@ -182,12 +168,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="Cab-U8-TSq"/>
+                                <exclude reference="bJQ-7a-gbe"/>
                                 <exclude reference="K5s-vo-Bzx"/>
                                 <exclude reference="a8m-k3-NJu"/>
                                 <exclude reference="xYG-27-l9c"/>
                                 <exclude reference="ypT-Py-fSZ"/>
-                                <exclude reference="Cab-U8-TSq"/>
-                                <exclude reference="bJQ-7a-gbe"/>
                             </mask>
                         </variation>
                     </view>
@@ -200,80 +186,69 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6EK-DW-7vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-998" y="-561"/>
+            <point key="canvasLocation" x="-2177" y="225"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="agw-hP-B7M">
             <objects>
-                <viewController id="ifX-gr-3KZ" customClass="SettingsViewController" customModule="AnimalMatchPop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ifX-gr-3KZ" customClass="SettingsViewController" customModule="MatchPop_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ewE-4J-sL7"/>
                         <viewControllerLayoutGuide type="bottom" id="e1e-2P-oR5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nlr-Xc-Qqs">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DwC-KU-bJJ">
-                                <rect key="frame" x="161.5" y="88" width="51" height="31"/>
-                                <animations/>
+                                <rect key="frame" x="161.5" y="112" width="51" height="31"/>
                                 <connections>
                                     <action selector="audioToggle:" destination="ifX-gr-3KZ" eventType="valueChanged" id="4zp-xB-Mni"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOUNDS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QG5-dN-tZa">
-                                <rect key="frame" x="20" y="72" width="126.5" height="47"/>
-                                <animations/>
+                                <rect key="frame" x="20" y="96" width="126.5" height="47"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="33"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="DIFFICULTY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3o4-wv-qu8">
-                                <rect key="frame" x="20" y="127" width="179" height="47"/>
-                                <animations/>
+                                <rect key="frame" x="20" y="151" width="179" height="47"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="33"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tSA-F6-4BF">
-                                <rect key="frame" x="20" y="182" width="203" height="29"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="407" id="CtY-Tl-plq"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="206" width="218" height="32"/>
                                 <segments>
                                     <segment title="EASY"/>
                                     <segment title="MEDIUM"/>
                                     <segment title="HARD"/>
                                 </segments>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="CtY-Tl-plq"/>
-                                    </mask>
-                                </variation>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="difficultySelection:" destination="ifX-gr-3KZ" eventType="valueChanged" id="KqB-m1-qxn"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkE-Ww-x31">
-                                <rect key="frame" x="475" y="566" width="105" height="26"/>
-                                <animations/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkE-Ww-x31">
+                                <rect key="frame" x="289" y="828" width="105" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <state key="normal" title="Graphics by Freepik">
-                                    <color key="titleColor" red="0.17259720789999999" green="0.6207690267" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.17259720789999999" green="0.6207690267" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="linkToFreepik:" destination="ifX-gr-3KZ" eventType="touchUpInside" id="BLG-hz-HOx"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="0.64313725489999995" green="0.90196078430000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.64313725489999995" green="0.90196078430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="3o4-wv-qu8" firstAttribute="top" secondItem="QG5-dN-tZa" secondAttribute="bottom" constant="8" id="0Ub-3z-dVe"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3o4-wv-qu8" secondAttribute="trailing" constant="20" symbolic="YES" id="8sR-Zv-xFr"/>
+                            <constraint firstItem="zkE-Ww-x31" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nlr-Xc-Qqs" secondAttribute="leading" constant="20" symbolic="YES" id="DbQ-Km-NIB"/>
                             <constraint firstItem="DwC-KU-bJJ" firstAttribute="bottom" secondItem="QG5-dN-tZa" secondAttribute="bottom" id="Dhx-sd-mz6"/>
                             <constraint firstItem="DwC-KU-bJJ" firstAttribute="bottom" secondItem="QG5-dN-tZa" secondAttribute="bottom" id="Glc-OB-dKd"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tSA-F6-4BF" secondAttribute="trailing" constant="20" symbolic="YES" id="Imp-6Y-7KK"/>
                             <constraint firstItem="DwC-KU-bJJ" firstAttribute="top" secondItem="ewE-4J-sL7" secondAttribute="bottom" constant="220" id="JhD-1A-Clw"/>
                             <constraint firstItem="tSA-F6-4BF" firstAttribute="leading" secondItem="3o4-wv-qu8" secondAttribute="leading" id="JnJ-bN-nyq"/>
                             <constraint firstItem="tSA-F6-4BF" firstAttribute="centerY" secondItem="3o4-wv-qu8" secondAttribute="centerY" id="KMD-Fa-xMh"/>
@@ -296,7 +271,6 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="paF-WR-1dr"/>
-                                <exclude reference="KMD-Fa-xMh"/>
                                 <exclude reference="Glc-OB-dKd"/>
                                 <exclude reference="JhD-1A-Clw"/>
                                 <exclude reference="aLm-tD-aPi"/>
@@ -305,6 +279,7 @@
                                 <exclude reference="pwm-nv-xSd"/>
                                 <exclude reference="rJj-wd-fIF"/>
                                 <exclude reference="wgZ-qk-uOI"/>
+                                <exclude reference="KMD-Fa-xMh"/>
                                 <exclude reference="aKH-NN-UgO"/>
                             </mask>
                         </variation>
@@ -323,7 +298,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B2e-YQ-0lw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1366" y="922"/>
+            <point key="canvasLocation" x="-1339" y="976"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uyI-FU-xXw">
@@ -331,9 +306,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="06o-W5-2Vk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XFM-6b-1T1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -342,14 +316,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ujw-Mb-A7W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1366" y="218"/>
+            <point key="canvasLocation" x="-2178" y="977"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="38X-Mm-Dck"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="cloud" width="600" height="359"/>
         <image name="play" width="64" height="64"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="MfD-rw-bwa"/>
-    </inferredMetricsTieBreakers>
 </document>

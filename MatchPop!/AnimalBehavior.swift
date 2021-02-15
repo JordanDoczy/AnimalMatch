@@ -20,7 +20,7 @@ class AnimalBehavior : UIDynamicBehavior {
     }
     fileprivate lazy var collisionBehavior: UICollisionBehavior = {
         let lazy = UICollisionBehavior()
-        lazy.collisionMode = UICollisionBehaviorMode.boundaries
+        lazy.collisionMode = UICollisionBehavior.Mode.boundaries
         return lazy
     }() 
     fileprivate let gravityBehavior = UIGravityBehavior()
@@ -82,7 +82,7 @@ class AnimalBehavior : UIDynamicBehavior {
     
     func continuousPush(_ view:UIView, vector:CGVector){
         addToSuperview(view)
-        let behavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.continuous)
+        let behavior = UIPushBehavior(items: [view], mode: UIPushBehavior.Mode.continuous)
         behavior.pushDirection = vector
         addChildBehavior(behavior)
         pushBeaviors[view] = behavior
@@ -90,7 +90,7 @@ class AnimalBehavior : UIDynamicBehavior {
     
     func instantaneousPush(_ view:UIView, vector:CGVector){
         addToSuperview(view)
-        let behavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.instantaneous)
+        let behavior = UIPushBehavior(items: [view], mode: UIPushBehavior.Mode.instantaneous)
         behavior.pushDirection = vector
         behavior.action = { [unowned behavior] in
             behavior.dynamicAnimator?.removeBehavior(behavior)

@@ -116,7 +116,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         return animal
     }
 
-    func createAnimals(_ timer:Timer){
+    @objc func createAnimals(_ timer:Timer){
 
         if let balloon = timer.userInfo as? BalloonView{
             balloon.subviews.filter(){ $0 is UILabel }.first?.removeFromSuperview()
@@ -169,7 +169,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         return balloon
     }
     
-    func popBalloon(_ sender:UITapGestureRecognizer){
+    @objc func popBalloon(_ sender:UITapGestureRecognizer){
         if let animal = sender.view as? BalloonView {
             animal.pop()
             animal.isUserInteractionEnabled = false
@@ -209,7 +209,7 @@ class GameOverViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         }
     }
     
-    func playAgain(_ sender:UITapGestureRecognizer){
+    @objc func playAgain(_ sender:UITapGestureRecognizer){
         sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Pop)!)
         balloon!.subviews.filter(){ $0 is UILabel }.first?.removeFromSuperview()
         balloon!.pop(){ [unowned self] in

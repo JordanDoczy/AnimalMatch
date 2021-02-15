@@ -32,7 +32,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         struct Selectors{
             static let FlipCard:Selector = #selector(MatchGameViewController.flipCard(_:))
             static let FlipTwoCards:Selector = #selector(MatchGameViewController.flipTwoCards(_:))
-            static let Show:Selector = #selector(UIAlertView.show)
+            static let Show:Selector = #selector(CardView.show)
         }
     }
     
@@ -52,7 +52,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     }
     fileprivate var cardWidth: CGFloat { return (view.bounds.width - (spacer * CGFloat(cardsPerRow+1))) / CGFloat(cardsPerRow) }
     fileprivate var currentCard:CardView?
-    fileprivate var difficulty:UserSettings.Difficulty?{
+    var difficulty:UserSettings.Difficulty?{
         didSet{
             reset()
         }
@@ -125,12 +125,12 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
             currentCard!.hide()
             lastCard!.hide()
             
-            view.bringSubview(toFront: currentCard!)
-            view.bringSubview(toFront: lastCard!)
+            view.bringSubviewToFront(currentCard!)
+            view.bringSubviewToFront(lastCard!)
             
             
-            cards.remove(at: cards.index(of: currentCard!)!)
-            cards.remove(at: cards.index(of: lastCard!)!)
+            cards.remove(at: cards.firstIndex(of: currentCard!)!)
+            cards.remove(at: cards.firstIndex(of: lastCard!)!)
 
             if isGameOver() {
                 performSegue(withIdentifier: Constants.Segues.GameOver, sender: self)
@@ -157,14 +157,14 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         card.visible = true
     }
     
-    func flipCard(_ timer:Timer?){
+    @objc func flipCard(_ timer:Timer?){
         if let card = timer?.userInfo as? CardView{
             card.visible = false
             removeTimer(timer)
         }
     }
     
-    func flipTwoCards(_ timer:Timer?){
+    @objc func flipTwoCards(_ timer:Timer?){
         
         if let cards = timer?.userInfo as? [CardView]{
             if cards.count == 2 {
@@ -178,7 +178,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     
     // MARK: Private Methods
     fileprivate func addTimer(_ timer:Timer){
-        if timers.index(of: timer) < 0 {
+        if timers.firstIndex(of: timer) < 0 {
             timers.append(timer)
         }
     }
@@ -224,7 +224,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
 
     fileprivate func removeTimer(_ timer:Timer?){
         timer?.invalidate()
-        if let index = timers.index(of: timer!){
+        if let index = timers.firstIndex(of: timer!){
             timers.remove(at: index)
         }
     }
@@ -263,7 +263,7 @@ extension MutableCollection where Index == Int {
         for i in startIndex ..< endIndex - 1 {
             let j = Int(arc4random_uniform(UInt32(endIndex - i))) + i
             if i != j {
-                swap(&self[i], &self[j])
+                self.swapAt(i, j)
             }
         }
     }

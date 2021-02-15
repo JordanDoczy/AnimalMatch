@@ -35,7 +35,7 @@ class CardView: UIView {
         }
         set{
             isUserInteractionEnabled = !newValue
-            flip(sideA: newValue ? back : front, sideB: newValue ? front : back, animation: newValue ? UIViewAnimationOptions.transitionFlipFromLeft : UIViewAnimationOptions.transitionFlipFromRight, duration: newValue ? 0.4 : 0.55)
+            flip(sideA: newValue ? back : front, sideB: newValue ? front : back, animation: newValue ? UIView.AnimationOptions.transitionFlipFromLeft : UIView.AnimationOptions.transitionFlipFromRight, duration: newValue ? 0.4 : 0.55)
         }
     }
 
@@ -71,12 +71,12 @@ class CardView: UIView {
             })
     }
     
-    func show(){
-        flip(sideA: empty, sideB: back, animation: UIViewAnimationOptions.transitionFlipFromLeft, duration:0.35)
+    @objc func show(){
+        flip(sideA: empty, sideB: back, animation: UIView.AnimationOptions.transitionFlipFromLeft, duration:0.35)
     }
 
     
-    func tapped() {
+    @objc func tapped() {
         delegate?.cardTapped(self)
     }
     
@@ -94,7 +94,7 @@ class CardView: UIView {
         return card
     }
 
-    fileprivate func flip(sideA:UIView, sideB:UIView, animation:UIViewAnimationOptions=UIViewAnimationOptions.transitionFlipFromRight, duration:TimeInterval){
+    fileprivate func flip(sideA:UIView, sideB:UIView, animation:UIView.AnimationOptions=UIView.AnimationOptions.transitionFlipFromRight, duration:TimeInterval){
         UIView.transition(from: sideA, to: sideB, duration: duration, options: animation, completion: nil)
     }
 

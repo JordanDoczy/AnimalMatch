@@ -23,6 +23,11 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func close(_ sender: AnyObject) {
+        
+        if let presenter = presentingViewController as? MatchGameViewController {
+            presenter.difficulty = UserSettings.sharedInstance.difficulty
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -35,7 +40,9 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func linkToFreepik(_ sender: UIButton) {
-        UIApplication.shared.openURL(URL(string: "http://www.freepik.com/free-vector/animals-flat-vector-set_715458.htm")!)
+        if let url = URL(string: "http://www.freepik.com/free-vector/animals-flat-vector-set_715458.htm") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 
     // MARK: View Controller Lifecycle

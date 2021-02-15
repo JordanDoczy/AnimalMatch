@@ -74,7 +74,7 @@ class IntroViewController: UIViewController {
     }
     
     // MARK: Handlers
-    func pandaTapped(_ sender:UITapGestureRecognizer){
+    @objc func pandaTapped(_ sender:UITapGestureRecognizer){
         sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Giggle)!)
     }
 
@@ -84,10 +84,10 @@ class IntroViewController: UIViewController {
     
         background = createImageView(Assets.Images.Scenery.Background)
         view.addSubview(background)
-        view.sendSubview(toBack: background)
+        view.sendSubviewToBack(background)
         
         
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.curveEaseOut,
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIView.AnimationOptions.curveEaseOut,
             animations: { [unowned self] in
                 self.background.center.y -= self.background.bounds.size.height
             },
@@ -109,7 +109,7 @@ class IntroViewController: UIViewController {
             cloud1.frame = CGRect(origin: CGPoint(x:view.bounds.width, y: 0+imageHeight), size: CGSize(width: imageWidth, height: imageHeight))
             view.addSubview(cloud1)
             
-            UIView.animate(withDuration: 20, delay: 0.5, options: [UIViewAnimationOptions.curveLinear, UIViewAnimationOptions.repeat],
+            UIView.animate(withDuration: 20, delay: 0.5, options: [UIView.AnimationOptions.curveLinear, UIView.AnimationOptions.repeat],
                 animations: { [unowned self] in
                     self.cloud1.center.x = 0 - self.cloud1.bounds.size.width - 50
                 },
@@ -131,7 +131,7 @@ class IntroViewController: UIViewController {
             cloud2.frame = CGRect(origin: CGPoint(x:0-imageWidth, y: 0+imageHeight+80), size: CGSize(width: imageWidth, height: imageHeight))
             view.addSubview(cloud2)
             
-            UIView.animate(withDuration: 15, delay: 0.5, options: [UIViewAnimationOptions.curveLinear, UIViewAnimationOptions.repeat],
+            UIView.animate(withDuration: 15, delay: 0.5, options: [UIView.AnimationOptions.curveLinear, UIView.AnimationOptions.repeat],
                 animations: { [unowned self] in
                     self.cloud2.center.x = self.view.bounds.width + 50
                 },
@@ -149,10 +149,10 @@ class IntroViewController: UIViewController {
     func animateForeground(){
         foreground = createImageView(Assets.Images.Scenery.Foreground)
         view.addSubview(foreground)
-        view.sendSubview(toBack: foreground)
+        view.sendSubviewToBack(foreground)
         
         
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(),
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(),
             animations: { [unowned self] in
                 self.foreground.center.y -= self.foreground.bounds.size.height
             },
@@ -173,10 +173,10 @@ class IntroViewController: UIViewController {
         mountains.frame = CGRect(origin: CGPoint(x:view.bounds.width - imageWidth, y:uiView.center.y - imageHeight ), size: CGSize(width: imageWidth, height: imageHeight))
         
         view.addSubview(mountains)
-        view.sendSubview(toBack: mountains)
+        view.sendSubviewToBack(mountains)
         
         
-        UIView.animate(withDuration: 0.3, delay: 0.05, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.curveLinear,
+        UIView.animate(withDuration: 0.3, delay: 0.05, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIView.AnimationOptions.curveLinear,
             animations: { [unowned self] in
                 self.mountains.center.y -= imageHeight/2
             },
@@ -201,7 +201,7 @@ class IntroViewController: UIViewController {
         imageView.addGestureRecognizer(tapGesture)
         
         
-        UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.95, initialSpringVelocity: 20, options: UIViewAnimationOptions.curveLinear,
+        UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.95, initialSpringVelocity: 20, options: UIView.AnimationOptions.curveLinear,
             animations: { [unowned self] in
                 imageView.center.y = self.foreground.center.y - imageHeight + 10
             },
@@ -211,7 +211,7 @@ class IntroViewController: UIViewController {
     
     func animateUI(){
         
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(),
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(),
             animations: { [unowned self] in
                 self.startButton.alpha = 1
                 self.titleLabel.alpha = 1
