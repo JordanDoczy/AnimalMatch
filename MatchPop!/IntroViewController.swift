@@ -162,7 +162,7 @@ class IntroViewController: UIViewController {
         UIView.animationPublisher(withDuration: 0.4) { [unowned self] in
             foreground.center.y -= foreground.bounds.size.height
         }
-        .flatMap { [unowned self] _ in
+        .map { [unowned self] _ in
             return UIView.animationPublisher(withDuration: 0.3,
                                              delay: 0,
                                              usingSpringWithDamping: 0.5,
@@ -171,7 +171,7 @@ class IntroViewController: UIViewController {
                 background.center.y -= background.bounds.size.height
             }
         }
-        .flatMap { [unowned self] _ in
+        .map { [unowned self] _ in
             return UIView.animationPublisher(withDuration: 0.3,
                                              delay: 0.05,
                                              usingSpringWithDamping: 0.5,
@@ -180,14 +180,14 @@ class IntroViewController: UIViewController {
                 mountains.center.y -= imageHeight/2
             }
         }
-        .flatMap { [unowned self] _ in
+        .map { [unowned self] _ in
             return UIView.animationPublisher(withDuration: 0.4, delay: 0) {
                 startButton.alpha = 1
                 titleLabel.alpha = 1
                 settingsButton.alpha = 1
             }
         }
-        .flatMap { [unowned self] _ in
+        .map { [unowned self] _ in
             return UIView.animationPublisher(withDuration: 0.5,
                                              delay: 0.25,
                                              usingSpringWithDamping: 0.95,
@@ -196,10 +196,7 @@ class IntroViewController: UIViewController {
                 panda.center.y = foreground.center.y - imageHeight + 10
             }
         }
-        .sink(receiveValue:
-                { isCompleted in
-                    print("done")
-                })
+        .sink(receiveValue: { _ in })
         .store(in: &cancellables)
     }
 }

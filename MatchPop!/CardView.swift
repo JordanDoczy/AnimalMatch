@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Combine
 
 protocol CardViewDelegate :class{
     func cardTapped(_ card:CardView)
@@ -23,6 +24,7 @@ class CardView: UIView {
 
     // MARK: Private Members
     fileprivate var back: UIView!
+    fileprivate var cancellables: Set<AnyCancellable> = []
     fileprivate var front: UIView!
     fileprivate var empty: UIView!
 
@@ -57,18 +59,17 @@ class CardView: UIView {
     
     // MARK: API
     func hide(){
-        func disappear(){
-            UIView.animate(withDuration: 0.50, animations: {
-                self.alpha=0
-                self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-                })
+        UIView.animationPublisher(withDuration: 0.55) { [unowned self] in
+            transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         }
-        
-        UIView.animate(withDuration: 0.55, animations: {
-            self.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-            }, completion: { finished in
-                disappear()
-            })
+        .flatMap { [unowned self] _ in
+            return UIView.animationPublisher(withDuration: 0.5) { [unowned self] in
+                alpha=0
+                transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            }
+        }
+        .sink { _ in }
+        .store(in: &cancellables)
     }
     
     @objc func show(){

@@ -94,7 +94,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     }
     fileprivate var numberOfRows:Int{ return Int((numberOfCards)/cardsPerRow) }
     fileprivate var spacer:CGFloat = 5.0
-    fileprivate var timers = [Timer]()
+    fileprivate var timers = Set<Timer>()
     
     
     // MARK: View Controller LifeCycle
@@ -127,8 +127,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
             
             view.bringSubviewToFront(currentCard!)
             view.bringSubviewToFront(lastCard!)
-            
-            
+
             cards.remove(at: cards.firstIndex(of: currentCard!)!)
             cards.remove(at: cards.firstIndex(of: lastCard!)!)
 
@@ -148,7 +147,7 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
                 foundMatch()
             }
             else{
-                addTimer(Timer.scheduledTimer(timeInterval: 1.25, target: self, selector: Constants.Selectors.FlipTwoCards, userInfo: [currentCard!, lastCard!], repeats: false))
+                timers.insert(Timer.scheduledTimer(timeInterval: 1.25, target: self, selector: Constants.Selectors.FlipTwoCards, userInfo: [currentCard!, lastCard!], repeats: false))
             }
             currentCard = nil
             lastCard = nil
@@ -165,11 +164,10 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     }
     
     @objc func flipTwoCards(_ timer:Timer?){
-        
         if let cards = timer?.userInfo as? [CardView]{
             if cards.count == 2 {
                 cards[0].visible = false
-                addTimer(Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: Constants.Selectors.FlipCard, userInfo: cards[1], repeats: false))
+                timers.insert(Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: Constants.Selectors.FlipCard, userInfo: cards[1], repeats: false))
             }
         }
         
@@ -177,63 +175,65 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
     }
     
     // MARK: Private Methods
-    fileprivate func addTimer(_ timer:Timer){
-        if timers.firstIndex(of: timer) < 0 {
-            timers.append(timer)
-        }
-    }
-    
     fileprivate func animateCards(){
-        for i in 0..<cards.count{
-            addTimer(Timer.scheduledTimer(timeInterval: Double(i) * 0.015, target: cards[i], selector: Constants.Selectors.Show, userInfo: nil, repeats: false))
+        for i in 0..<cards.count {
+            timers.insert(Timer.scheduledTimer(timeInterval: Double(i) * 0.015,
+                                          target: cards[i],
+                                          selector: Constants.Selectors.Show,
+                                          userInfo: nil,
+                                          repeats: false))
         }
     }
 
     fileprivate func createCards(){
         cards = []
         
-        var cardImages = Array(Array(images.keys).shuffle()[0..<(numberOfCards/2)])
+        var cardImages = images.keys.shuffled()[0..<numberOfCards/2]
         cardImages += cardImages
         
         let yOffSet = view.bounds.height/2 - (CGFloat(numberOfRows) * (cardHeight+spacer))/2
         var count = 0
-        while cardImages.count > 0 {
-            
+
+        while !cardImages.isEmpty {
             let row = Int(floor(CGFloat(count/cardsPerRow)))
             let column = Int(count % cardsPerRow)
-            let image = cardImages.remove(at: Int(arc4random_uniform(UInt32(cardImages.count))))
-            let card = CardView(frame: CGRect(origin: CGPoint(x: CGFloat(column) * (cardWidth + spacer) + spacer, y: CGFloat(row) * (cardHeight + spacer) + CGFloat(yOffSet)), size: CGSize(width: cardWidth, height: cardHeight)), back: Assets.Images.Card, front: image, color:images[image]!)
+            let image = cardImages.remove(at: Int.random(in: 0..<cardImages.count))
+            let card = CardView(
+                frame: CGRect(origin: CGPoint(x: CGFloat(column) * (cardWidth + spacer) + spacer,
+                                              y: CGFloat(row) * (cardHeight + spacer) + CGFloat(yOffSet)),
+                              size: CGSize(width: cardWidth, height: cardHeight)),
+                back: Assets.Images.Card,
+                front: image,
+                color:images[image]!)
             card.delegate = self
-            
-            
             view.addSubview(card)
-            cards += [card]
+            cards.append(card)
             count += 1
         }
     }
     
     fileprivate func isGameOver() ->Bool {
-        return cards.count == 0
+        return cards.isEmpty
     }
 
     fileprivate func removeAllTimers(){
-        for timer in timers{
-            removeTimer(timer)
-        }
+        timers.forEach { removeTimer($0) }
     }
 
     fileprivate func removeTimer(_ timer:Timer?){
-        timer?.invalidate()
-        if let index = timers.firstIndex(of: timer!){
-            timers.remove(at: index)
+        guard let timer = timer else {
+            return
         }
+
+        timer.invalidate()
+        timers.remove(timer)
     }
     
     fileprivate func reset(){
         lastCard = nil
         currentCard = nil
-        _ = view.subviews.map(){
-            if let view = $0 as? CardView{
+        view.subviews.forEach { view in
+            if view is CardView {
                 view.removeFromSuperview()
             }
         }
@@ -243,30 +243,3 @@ class MatchGameViewController: UIViewController, CardViewDelegate {
         audioPlayer = AVAudioPlayer.playSound(Assets.Sounds.Start)
     }
 }
-
-
-extension Collection {
-    /// Return a copy of `self` with its elements shuffled
-    func shuffle() -> [Iterator.Element] {
-        var list = Array(self)
-        list.shuffleInPlace()
-        return list
-    }
-}
-
-extension MutableCollection where Index == Int {
-    /// Shuffle the elements of `self` in-place.
-    mutating func shuffleInPlace() {
-        // empty and single-element collections don't shuffle
-        guard count > 2 else { return }
-
-        for i in startIndex ..< endIndex - 1 {
-            let j = Int(arc4random_uniform(UInt32(endIndex - i))) + i
-            if i != j {
-                self.swapAt(i, j)
-            }
-        }
-    }
-}
-
-
