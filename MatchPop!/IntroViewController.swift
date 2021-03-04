@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Combine
 
 class IntroViewController: UIViewController {
     
@@ -23,12 +24,14 @@ class IntroViewController: UIViewController {
 
     // MARK: Private Members
     fileprivate var background: UIImageView!
+    fileprivate var cancellables: Set<AnyCancellable> = []
     fileprivate var cloud1: UIImageView!
     fileprivate var cloud2: UIImageView!
     fileprivate var foreground: UIImageView!
     fileprivate var loaded = false
     fileprivate var mountains: UIImageView!
     fileprivate var sounds = [AVAudioPlayer]()
+    
 
     // MARK: IBOutlets
     @IBOutlet weak var settingsButton: UIButton!
@@ -46,7 +49,7 @@ class IntroViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !loaded {
-            animateForeground()
+            animateIn()
             sounds.append(AVAudioPlayer.playSound(Assets.Sounds.Intro)!)
             loaded = true
         }
@@ -80,23 +83,6 @@ class IntroViewController: UIViewController {
 
     
     // MARK: Animate Methods
-    func animateBackground(){
-    
-        background = createImageView(Assets.Images.Scenery.Background)
-        view.addSubview(background)
-        view.sendSubviewToBack(background)
-        
-        
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIView.AnimationOptions.curveEaseOut,
-            animations: { [unowned self] in
-                self.background.center.y -= self.background.bounds.size.height
-            },
-            completion: { [unowned self] finished in
-                self.animateMoutains(self.background)
-            }
-        )
-    }
-    
     func animateClouds(){
         
         func cloud1Animation(){
@@ -109,19 +95,16 @@ class IntroViewController: UIViewController {
             cloud1.frame = CGRect(origin: CGPoint(x:view.bounds.width, y: 0+imageHeight), size: CGSize(width: imageWidth, height: imageHeight))
             view.addSubview(cloud1)
             
-            UIView.animate(withDuration: 20, delay: 0.5, options: [UIView.AnimationOptions.curveLinear, UIView.AnimationOptions.repeat],
-                animations: { [unowned self] in
-                    self.cloud1.center.x = 0 - self.cloud1.bounds.size.width - 50
-                },
-                completion: { [unowned self] finished in
-                    self.cloud1.center.x = self.view.bounds.width
-                    
-                }
-            )
+            UIView.animationPublisher(withDuration: 20, delay: 0.5, options: [UIView.AnimationOptions.curveLinear, UIView.AnimationOptions.repeat]) { [unowned self] in
+                cloud1.center.x = 0 - cloud1.bounds.size.width - 50
+            }
+            .sink(receiveValue: { [unowned self] _ in
+                cloud1.center.x = view.bounds.width
+                   })
+            .store(in: &cancellables)
         }
         
-        func cloud2Animation(){
-            
+        func cloud2Animation() {
             cloud2?.removeFromSuperview()
             cloud2 = UIImageView(image: UIImage(named:Assets.Images.Scenery.Cloud))
             
@@ -131,98 +114,92 @@ class IntroViewController: UIViewController {
             cloud2.frame = CGRect(origin: CGPoint(x:0-imageWidth, y: 0+imageHeight+80), size: CGSize(width: imageWidth, height: imageHeight))
             view.addSubview(cloud2)
             
-            UIView.animate(withDuration: 15, delay: 0.5, options: [UIView.AnimationOptions.curveLinear, UIView.AnimationOptions.repeat],
-                animations: { [unowned self] in
-                    self.cloud2.center.x = self.view.bounds.width + 50
-                },
-                completion: { [unowned self] finished in
-                    self.cloud2.center.x = 0-imageWidth
-                    
-                }
-            )
+            UIView.animationPublisher(withDuration: 15, delay: 0.5, options: [UIView.AnimationOptions.curveLinear, UIView.AnimationOptions.repeat]) { [unowned self] in
+                cloud2.center.x = view.bounds.width + 50
+            }
+            .sink(receiveValue: { [unowned self] _ in
+                cloud2.center.x = 0 - imageWidth
+           })
+            .store(in: &cancellables)
         }
-        
+
         cloud1Animation()
         cloud2Animation()
     }
     
-    func animateForeground(){
+    func animateIn(){
         foreground = createImageView(Assets.Images.Scenery.Foreground)
         view.addSubview(foreground)
         view.sendSubviewToBack(foreground)
         
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(),
-            animations: { [unowned self] in
-                self.foreground.center.y -= self.foreground.bounds.size.height
-            },
-            completion: { [unowned self] finished in
-                self.animateBackground()
-                
-            }
-        )
-    }
-
-    
-    func animateMoutains(_ uiView:UIView){
+        background = createImageView(Assets.Images.Scenery.Background)
+        view.addSubview(background)
+        view.sendSubviewToBack(background)
         
         mountains = UIImageView(image: UIImage(named: Assets.Images.Scenery.Mountains))
-        let imageWidth = uiView.bounds.width/2
-        let imageHeight = uiView.bounds.width/2 * mountains.image!.size.height / mountains.image!.size.width
-        
-        mountains.frame = CGRect(origin: CGPoint(x:view.bounds.width - imageWidth, y:uiView.center.y - imageHeight ), size: CGSize(width: imageWidth, height: imageHeight))
-        
+        var imageWidth = background.bounds.width/2
+        var imageHeight = background.bounds.width/2 * mountains.image!.size.height / mountains.image!.size.width
+        mountains.frame = CGRect(origin: CGPoint(x: view.bounds.width - imageWidth,
+                                                 y: background.center.y - imageHeight),
+                                 size: CGSize(width: imageWidth,
+                                              height: imageHeight))
+
         view.addSubview(mountains)
         view.sendSubviewToBack(mountains)
         
+        let panda = UIImageView(image: UIImage(named: Assets.Images.Animals.Panda))
+        imageWidth = 50
+        imageHeight = imageWidth * panda.image!.size.height / panda.image!.size.width
         
-        UIView.animate(withDuration: 0.3, delay: 0.05, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIView.AnimationOptions.curveLinear,
-            animations: { [unowned self] in
-                self.mountains.center.y -= imageHeight/2
-            },
-            completion: { [unowned self] finished in
-                self.animatePanda()
-                self.animateUI()
-            }
-        )
-    }
-
-    
-    func animatePanda(){
-        let imageView = UIImageView(image: UIImage(named: Assets.Images.Animals.Panda))
-        let imageWidth:CGFloat = 50
-        let imageHeight = imageWidth * imageView.image!.size.height / imageView.image!.size.width
-        
-        imageView.frame = CGRect(origin: CGPoint(x:20, y: view.bounds.height), size: CGSize(width: imageWidth, height: imageHeight))
-        view.addSubview(imageView)
+        panda.frame = CGRect(origin: CGPoint(x:20, y: view.bounds.height), size: CGSize(width: imageWidth, height: imageHeight))
+        view.addSubview(panda)
         
         let tapGesture = UITapGestureRecognizer(target:self, action:Constants.Selectors.PandaTapped);
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(tapGesture)
-        
-        
-        UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.95, initialSpringVelocity: 20, options: UIView.AnimationOptions.curveLinear,
-            animations: { [unowned self] in
-                imageView.center.y = self.foreground.center.y - imageHeight + 10
-            },
-            completion: nil
-        )
-    }
-    
-    func animateUI(){
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(),
-            animations: { [unowned self] in
-                self.startButton.alpha = 1
-                self.titleLabel.alpha = 1
-                self.settingsButton.alpha = 1
-            },
-            completion: nil
-        )
-    }
+        panda.isUserInteractionEnabled = true
+        panda.addGestureRecognizer(tapGesture)
 
-    
-    
-    
-    
+
+        UIView.animationPublisher(withDuration: 0.4) { [unowned self] in
+            foreground.center.y -= foreground.bounds.size.height
+        }
+        .flatMap { [unowned self] _ in
+            return UIView.animationPublisher(withDuration: 0.3,
+                                             delay: 0,
+                                             usingSpringWithDamping: 0.5,
+                                             initialSpringVelocity: 10.0,
+                                             options: UIView.AnimationOptions.curveEaseOut) {
+                background.center.y -= background.bounds.size.height
+            }
+        }
+        .flatMap { [unowned self] _ in
+            return UIView.animationPublisher(withDuration: 0.3,
+                                             delay: 0.05,
+                                             usingSpringWithDamping: 0.5,
+                                             initialSpringVelocity: 10.0,
+                                             options: UIView.AnimationOptions.curveLinear) {
+                mountains.center.y -= imageHeight/2
+            }
+        }
+        .flatMap { [unowned self] _ in
+            return UIView.animationPublisher(withDuration: 0.4, delay: 0) {
+                startButton.alpha = 1
+                titleLabel.alpha = 1
+                settingsButton.alpha = 1
+            }
+        }
+        .flatMap { [unowned self] _ in
+            return UIView.animationPublisher(withDuration: 0.5,
+                                             delay: 0.25,
+                                             usingSpringWithDamping: 0.95,
+                                             initialSpringVelocity: 20,
+                                             options: UIView.AnimationOptions.curveLinear) {
+                panda.center.y = foreground.center.y - imageHeight + 10
+            }
+        }
+        .sink(receiveValue:
+                { isCompleted in
+                    print("done")
+                })
+        .store(in: &cancellables)
+    }
 }

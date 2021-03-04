@@ -40,6 +40,7 @@
 		E616C75A1C051CBC00231BD9 /* cat.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C7591C051CBC00231BD9 /* cat.wav */; };
 		E616C75C1C051E4800231BD9 /* sheep.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C75B1C051E4800231BD9 /* sheep.wav */; };
 		E616C75E1C051F0F00231BD9 /* donkey.wav in Resources */ = {isa = PBXBuildFile; fileRef = E616C75D1C051F0F00231BD9 /* donkey.wav */; };
+		E69F822425F13E5C003D32EA /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F822325F13E5C003D32EA /* UIView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		E616C7591C051CBC00231BD9 /* cat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cat.wav; sourceTree = "<group>"; };
 		E616C75B1C051E4800231BD9 /* sheep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sheep.wav; sourceTree = "<group>"; };
 		E616C75D1C051F0F00231BD9 /* donkey.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = donkey.wav; sourceTree = "<group>"; };
+		E69F822325F13E5C003D32EA /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		E616C7061C03DFBE00231BD9 /* MatchPop! */ = {
 			isa = PBXGroup;
 			children = (
+				E69F822225F13E4D003D32EA /* Extensions */,
 				E616C7101C03DFBE00231BD9 /* LaunchScreen.storyboard */,
 				E616C70B1C03DFBE00231BD9 /* Main.storyboard */,
 				E616C7241C03E01600231BD9 /* Models */,
@@ -194,6 +197,14 @@
 				E616C7351C03E0BD00231BD9 /* Sounds */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		E69F822225F13E4D003D32EA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E69F822325F13E5C003D32EA /* UIView+Extensions.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,6 +307,7 @@
 				E616C7311C03E05900231BD9 /* AnimalBehavior.swift in Sources */,
 				E616C7231C03DFFC00231BD9 /* SettingsViewController.swift in Sources */,
 				E616C7221C03DFFC00231BD9 /* MatchGameViewController.swift in Sources */,
+				E69F822425F13E5C003D32EA /* UIView+Extensions.swift in Sources */,
 				E616C72B1C03E02C00231BD9 /* CardView.swift in Sources */,
 				E616C7331C03E05900231BD9 /* AVAudioPlayerExtension.swift in Sources */,
 				E616C7261C03E01E00231BD9 /* UserSettings.swift in Sources */,
@@ -425,7 +437,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "MatchPop!/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jordandoczy.MatchPop;
@@ -447,7 +459,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "MatchPop!/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jordandoczy.MatchPop;
